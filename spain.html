@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spain — A private selection · Nomadikas</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Josefin+Sans:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<style>
+  body { font-family: 'Montserrat', sans-serif; background: #F6F6F6; color: #2D2D2D; }
+  .font-heading { font-family: 'Amiri', serif; }
+  .font-josefin { font-family: 'Josefin Sans', sans-serif; }
+  .photo-hover { transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
+  .group:hover .photo-hover { transform: scale(1.03); }
+  @keyframes ken-burns { 0%{transform:scale(1.05) translate(0,0);} 50%{transform:scale(1.12) translate(-1.5%,1%);} 100%{transform:scale(1.05) translate(0,0);} }
+  .hero-bg { animation: ken-burns 36s ease-in-out infinite; }
+  body.modal-open { overflow: hidden; }
+  .fav-btn.fav-active svg { fill: #fff; stroke: #fff; }
+  .fav-btn.fav-active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  .price-strip { border-top: 1px solid rgba(0,0,0,0.10); }
+  @keyframes pulse-soft { 0%,100%{transform:translateY(0);opacity:0.85;} 50%{transform:translateY(-3px);opacity:1;} }
+  .pulse-soft { animation: pulse-soft 2.2s ease-in-out infinite; }
+  .exp-photo { transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+  .exp-card:hover .exp-photo { transform: scale(1.06); }
+  .exp-default { transition: opacity 0.5s ease; }
+  .exp-card:hover .exp-default { opacity: 0; }
+  .exp-hover { opacity: 0; transform: translateY(32px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+  .exp-card:hover .exp-hover { opacity: 1; transform: translateY(0); }
+  .exp-dark { opacity: 0; transition: opacity 0.5s ease; }
+  .exp-card:hover .exp-dark { opacity: 1; }
+  .exp-swiper { overflow: visible; }
+  .exp-swiper .swiper-slide { height: auto; }
+  #modal-photos { background: #141414; }
+  .modal-fade-top { position: absolute; left: 0; right: 0; top: 0; height: 140px; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0) 100%); }
+  .modal-fade-bot { position: absolute; left: 0; right: 0; bottom: 0; height: 200px; z-index: 2; pointer-events: none; background: linear-gradient(0deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0) 100%); }
+  .modal-dot { width: 2rem; height: 2px; background: rgba(255,255,255,0.3); cursor: pointer; border: none; padding: 0; transition: background 0.3s ease; }
+  .modal-dot.active { background: #faf8f3; }
+  .modal-photo-arrow { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.25); backdrop-filter: blur(6px); transition: all 0.3s ease; }
+  .modal-photo-arrow:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.5); }
+  .modal-photo-caption { background: rgba(10,10,10,0.55); backdrop-filter: blur(6px); color: rgba(250,248,243,0.95); font-family: 'Amiri', serif; font-style: italic; font-size: 0.95rem; letter-spacing: 0.01em; padding: 0.55rem 1.25rem; transition: opacity 0.4s ease; }
+</style>
+</head>
+<body>
+
+<header class="sticky top-0 z-40 px-6 md:px-8 py-4 bg-[#F6F6F6]/95 backdrop-blur-md border-b border-black/8">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-6">
+    <a href="index.html" class="block"><img src="https://nomadikas.com/wp-content/uploads/2025/01/cropped-cropped-Untitled-design-1-300x75.webp" alt="Nomadikas" class="h-8 md:h-9" /></a>
+    <a href="index.html" class="hidden md:flex items-center gap-2 font-josefin uppercase tracking-[0.28em] text-[0.6rem] text-[#5a5a5a] hover:text-black transition-colors"><span>←</span> All countries</a>
+    <div class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79]">Spain · Menorca</div>
+  </div>
+</header>
+
+<section class="relative h-[62vh] min-h-[480px] overflow-hidden">
+  <div class="hero-bg absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1771354146834-feed2e0aee28?w=2000&q=80');"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/15 to-black/60"></div>
+  <div class="relative z-10 h-full flex flex-col justify-center items-center text-center px-6 text-white">
+    <p class="font-josefin uppercase tracking-[0.42em] text-[0.62rem] mb-6 opacity-85">Spain · Menorca · Two farms</p>
+    <h1 class="font-heading italic font-light leading-[1.05]" style="font-size: clamp(2.8rem, 5.5vw, 4.8rem);">An island of farmers<br />no one has <em class="text-[#d4d2c5]">heard of.</em></h1>
+  </div>
+</section>
+
+<section class="px-6 py-20 max-w-3xl mx-auto text-center">
+  <p class="font-light leading-relaxed text-[#5a5a5a] text-[1.05rem]">Menorca is the quietest of the Balearics — a biosphere reserve where the land is mostly worked by hand. Both homes are working farm estates: one built around a 14th-century watchtower with its own chapel and a private path to a cove; the other a 19th-century hilltop finca on 60 hectares. The rarest currency on the Mediterranean — privacy, all of it yours.</p>
+</section>
+
+<section class="px-6 mb-20 max-w-6xl mx-auto">
+  <article id="venue-santa-prima" class="grid md:grid-cols-2 bg-[#FBF9F4] border border-black/8 overflow-hidden">
+    <div class="flex flex-col order-1">
+      <button onclick="openSlider('santaPrima')" class="relative block w-full overflow-hidden bg-black cursor-zoom-in group flex-1">
+        <div class="aspect-[4/5] md:aspect-auto md:min-h-[620px] md:h-full bg-cover bg-center photo-hover" style="background-image: url('assets/spain/santa-prima/02.jpg');"></div>
+        <span class="absolute top-7 left-7 font-heading italic text-white/85" style="font-size: 1.8rem;">01</span>
+        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none"><div class="bg-white/85 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center text-lg text-[#1a1a1a]">‹</div></div>
+        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none"><div class="bg-white/85 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center text-lg text-[#1a1a1a]">›</div></div>
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur text-white px-4 py-2 font-josefin uppercase tracking-[0.32em] text-[0.55rem] pulse-soft">Click to view 15 photos</div>
+      </button>
+      <p class="font-heading italic text-[#5a5a5a] text-[0.92rem] leading-snug px-6 py-4 bg-[#FBF9F4]">An aerial view of the estate — the 14th-century watchtower, the 1789 chapel, and 108 hectares of olive grove rolling toward the sea.</p>
+    </div>
+    <div class="flex flex-col justify-between p-8 md:p-12 lg:p-14 order-2">
+      <div>
+        <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-6">Santa Ponça · Menorca · Spain</p>
+        <h2 class="font-heading italic leading-[1] mb-4" style="font-size: clamp(2.4rem, 4.2vw, 3.4rem);">Santa Prima</h2>
+        <p class="font-heading italic text-[1.05rem] text-[#5a5a5a] mb-7 leading-snug">14th-century watchtower · private path to a cove · 108 hectares yours alone</p>
+        <p class="text-[0.92rem] leading-[1.7] text-[#2D2D2D] font-light mb-8 max-w-[44ch]">An 18th-century farmhouse built around a 14th-century watchtower, a consecrated 1789 chapel, and 108 hectares of protected Menorcan countryside. Vaulted ceilings, original shutters, antiques chosen slowly by the family. A private path through olive and pine to Cala Mitjana — 2.5 km of nobody but you.</p>
+        <div class="grid grid-cols-3 gap-x-8 gap-y-4 mb-8">
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">12</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">guests</p></div>
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">6</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">bedrooms</p></div>
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">108 ha</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">protected estate</p></div>
+        </div>
+        <div class="grid grid-cols-3 gap-x-4 gap-y-3 mb-7 pb-7 border-b border-black/10">
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="castle" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>14th-c. tower</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="church" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Private chapel</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="waves" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Private cove path</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="droplet" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Pool</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="utensils-crossed" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Chef · summer</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="trees" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Olive groves</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          <button onclick="openInfo('santaPrima')" class="px-5 py-3 border border-black/30 hover:bg-black hover:text-white transition-colors font-josefin uppercase tracking-[0.28em] text-[0.55rem] flex items-center gap-2"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg><span>Description &amp; FAQs</span></button>
+          <button onclick="toggleFav('santaPrima')" data-fav="santaPrima" class="fav-btn px-5 py-3 border border-black/30 transition-colors font-josefin uppercase tracking-[0.28em] text-[0.55rem] flex items-center gap-2"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="fav-label">Save to shortlist</span></button>
+        </div>
+        <div class="price-strip pt-5">
+          <div class="flex items-end justify-between gap-4 mb-3">
+            <div><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mb-1">Catering · from</p><p class="font-heading italic text-[1.6rem] leading-none">€195 <span class="text-sm text-[#5a5a5a] not-italic">/ person / day · chef Jul–Aug</span></p></div>
+            <span class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#888]">Indicative</span>
+          </div>
+          <p class="text-[0.78rem] text-[#5a5a5a] font-light"><span class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mr-2">Concierge</span>House managers + dedicated team — included.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="py-2 mb-8 max-w-3xl mx-auto text-center px-6">
+  <p class="font-heading italic text-[#8c8c79] text-xl leading-snug">"Or — larger, more lived-in, more rooms to wander."</p>
+</section>
+
+<section class="px-6 mb-24 max-w-6xl mx-auto">
+  <article id="venue-es-bec" class="grid md:grid-cols-2 bg-[#FBF9F4] border border-black/8 overflow-hidden">
+    <div class="flex flex-col justify-between p-8 md:p-12 lg:p-14 order-2 md:order-1">
+      <div>
+        <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-6">Alaior · Menorca · Spain</p>
+        <h2 class="font-heading italic leading-[1] mb-4" style="font-size: clamp(2.4rem, 4.2vw, 3.4rem);">Es Bec d'Aguila</h2>
+        <p class="font-heading italic text-[1.05rem] text-[#5a5a5a] mb-7 leading-snug">a 19th-century hilltop finca · eleven en-suites · 60 hectares all yours</p>
+        <p class="text-[0.92rem] leading-[1.7] text-[#2D2D2D] font-light mb-8 max-w-[44ch]">The Eagle's Beak — 19th-century merchant family's hilltop hideaway between Alaior and Es Migjorn. 1,000m² across three levels: French garden with fountain, green-marble bar and library, eleven en-suite bedrooms, 25m pool, gym, yoga studio overlooking the olives, cinema room, ceramic workshop. Farmer Xisco brings the eggs and honey.</p>
+        <div class="grid grid-cols-3 gap-x-8 gap-y-4 mb-8">
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">22</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">guests</p></div>
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">11</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">bedrooms</p></div>
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">60 ha</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">estate</p></div>
+        </div>
+        <div class="grid grid-cols-3 gap-x-4 gap-y-3 mb-7 pb-7 border-b border-black/10">
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="droplet" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>25m pool</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="dumbbell" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Gym + yoga</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="film" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Cinema room</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="book-open" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Library + bar</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="utensils-crossed" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Resident chef</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="leaf" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Organic farm</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          <button onclick="openInfo('esBec')" class="px-5 py-3 border border-black/30 hover:bg-black hover:text-white transition-colors font-josefin uppercase tracking-[0.28em] text-[0.55rem] flex items-center gap-2"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg><span>Description &amp; FAQs</span></button>
+          <button onclick="toggleFav('esBec')" data-fav="esBec" class="fav-btn px-5 py-3 border border-black/30 transition-colors font-josefin uppercase tracking-[0.28em] text-[0.55rem] flex items-center gap-2"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="fav-label">Save to shortlist</span></button>
+        </div>
+        <div class="price-strip pt-5">
+          <div class="flex items-end justify-between gap-4 mb-3">
+            <div><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mb-1">Catering · from</p><p class="font-heading italic text-[1.6rem] leading-none">€175 <span class="text-sm text-[#5a5a5a] not-italic">/ person / day · resident chef</span></p></div>
+            <span class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#888]">Indicative</span>
+          </div>
+          <p class="text-[0.78rem] text-[#5a5a5a] font-light"><span class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mr-2">Concierge</span>Dedicated team — included.</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col order-1 md:order-2">
+      <button onclick="openSlider('esBec')" class="relative block w-full overflow-hidden bg-black cursor-zoom-in group flex-1">
+        <div class="aspect-[4/5] md:aspect-auto md:min-h-[620px] md:h-full bg-cover bg-center photo-hover" style="background-image: url('assets/spain/es-bec/02.jpg');"></div>
+        <span class="absolute top-7 left-7 font-heading italic text-white/85" style="font-size: 1.8rem;">02</span>
+        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none"><div class="bg-white/85 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center text-lg text-[#1a1a1a]">‹</div></div>
+        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none"><div class="bg-white/85 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center text-lg text-[#1a1a1a]">›</div></div>
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur text-white px-4 py-2 font-josefin uppercase tracking-[0.32em] text-[0.55rem] pulse-soft">Click to view 15 photos</div>
+      </button>
+      <p class="font-heading italic text-[#5a5a5a] text-[0.92rem] leading-snug px-6 py-4 bg-[#FBF9F4]">The covered terrace and 25-metre pool — the hilltop facade above, the south coast just beyond the olive ridge.</p>
+    </div>
+  </article>
+</section>
+
+<section class="py-24 md:py-32 bg-[#1a1a1a] text-white/85 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-3xl mb-14">
+      <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-5">Signature experiences</p>
+      <h2 class="font-heading italic font-light leading-[1.1] text-white" style="font-size: clamp(2.4rem, 4.2vw, 3.4rem);">Experiences that<br />define the journey.</h2>
+    </div>
+
+    <div class="relative">
+      <button class="exp-prev absolute -left-2 md:-left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 border border-white/30 bg-black/40 backdrop-blur hover:bg-white/15 hover:border-white/60 text-white flex items-center justify-center text-2xl leading-none transition-all">‹</button>
+      <button class="exp-next absolute -right-2 md:-right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 border border-white/30 bg-black/40 backdrop-blur hover:bg-white/15 hover:border-white/60 text-white flex items-center justify-center text-2xl leading-none transition-all">›</button>
+
+      <div class="swiper exp-swiper"><div class="swiper-wrapper">
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1582046160328-4b6b27375d38?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Cala Macarella</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A boat day to<br>the southern cove</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Cala Macarella</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A boat day to<br>the southern cove</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">A private boat from Ciutadella anchors above turquoise water for the day — picnic, snorkel, return at sunset.</p></div>
+        </div></div>
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1612611820100-d8879f90545d?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Cap d'Artrutx</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A sunset at<br>the lighthouse</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Cap d'Artrutx</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A sunset at<br>the lighthouse</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">A private corner of the lighthouse restaurant — cliff straight down, sun straight ahead. Champagne the moment it touches the horizon.</p></div>
+        </div></div>
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1592837613828-4b65deb44f15?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">In the farmhouse kitchen</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A morning<br>cooking class</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">In the farmhouse kitchen</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A morning<br>cooking class</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">Sobrasada, ensaïmada, fresh sofrit. Then everyone sits down to eat what they've made — wine pour included.</p></div>
+        </div></div>
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1602025433815-fbf568355dee?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Bodegas Binifadet · Sant Lluís</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A vertical tasting<br>among the vines</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Bodegas Binifadet · Sant Lluís</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A vertical tasting<br>among the vines</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">Menorca's leading winery — vertical tasting in the cellar, then lunch among the vines with the winemaker.</p></div>
+        </div></div>
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1657447512778-df6449418ced?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Santa Prima · The chapel</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">Dinner in the<br>chapel courtyard</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Santa Prima · The chapel</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">Dinner in the<br>chapel courtyard</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">A long table beside the consecrated 1789 chapel, candle-lit, chef serving directly from the kitchen behind you.</p></div>
+        </div></div>
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1670212433014-b2435aca06a4?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">South coast trails</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A morning on<br>a Menorcan horse</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">South coast trails</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A morning on<br>a Menorcan horse</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">Menorca's pure-bred black horses — three hours through olive grove and cliff path, lunch at a working farm.</p></div>
+        </div></div>
+
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="px-8 py-10 text-center bg-[#F6F6F6] border-t border-black/8">
+  <img src="https://nomadikas.com/wp-content/uploads/2025/01/cropped-cropped-Untitled-design-1-300x75.webp" alt="Nomadikas" class="h-7 mx-auto mb-3 opacity-75" />
+  <p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">Spain · Menorca · private proposal</p>
+  <p class="mt-3 font-josefin uppercase tracking-[0.28em] text-[0.55rem] text-[#888]"><a href="index.html" class="border-b border-[#8c8c79] hover:text-black hover:border-black">← Look at Greece or Portugal</a></p>
+</footer>
+
+<div id="fav-tray" class="fixed bottom-6 right-6 z-40 bg-white shadow-2xl border border-black/15 px-6 py-5 max-w-[320px] transition-all duration-500" style="transform: translateY(160%);">
+  <div class="flex items-center justify-between mb-3"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">Your shortlist · <span id="fav-count">0</span></p><button onclick="clearFavs()" class="text-[#888] hover:text-black text-lg leading-none">×</button></div>
+  <ul id="fav-list" class="mb-4 text-[0.85rem] font-light text-[#2D2D2D] space-y-1"></ul>
+  <div class="flex gap-2"><a id="fav-mailto" href="#" class="flex-1 px-4 py-3 bg-black text-white text-center font-josefin uppercase tracking-[0.28em] text-[0.55rem] hover:bg-[#8c8c79] transition-colors">Email to Darina</a><button onclick="copyFavs()" class="px-3 py-3 border border-black/20 text-[#5a5a5a] hover:border-black hover:text-black transition-colors" title="Copy list"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+  <p id="copy-status" class="mt-2 font-josefin uppercase tracking-[0.32em] text-[0.5rem] text-[#8c8c79] opacity-0 transition-opacity">Copied to clipboard</p>
+</div>
+
+<div id="modal-photos" class="fixed inset-0 z-[100] hidden items-center justify-center">
+  <div class="modal-fade-top"></div>
+  <div class="modal-fade-bot"></div>
+  <div class="absolute top-6 left-6 md:top-8 md:left-8 z-[5] bg-black/30 backdrop-blur text-[#faf8f3] px-4 py-2 font-josefin uppercase tracking-[0.25em] text-[0.7rem]" id="modal-photo-counter">1 / 15</div>
+  <button onclick="closeModals()" class="modal-photo-arrow absolute top-6 right-6 md:top-8 md:right-8 z-[5] w-12 h-12 md:w-14 md:h-14 text-[#faf8f3] flex items-center justify-center"><svg class="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  <button onclick="prevPhoto()" class="modal-photo-arrow absolute left-3 md:left-8 top-1/2 -translate-y-1/2 z-[5] w-12 h-12 md:w-14 md:h-14 text-[#faf8f3] flex items-center justify-center text-2xl leading-none">‹</button>
+  <button onclick="nextPhoto()" class="modal-photo-arrow absolute right-3 md:right-8 top-1/2 -translate-y-1/2 z-[5] w-12 h-12 md:w-14 md:h-14 text-[#faf8f3] flex items-center justify-center text-2xl leading-none">›</button>
+  <img id="modal-photo-img" class="max-w-[90%] max-h-[80vh] object-contain relative z-[1]" src="" alt="" />
+  <div class="modal-photo-caption absolute bottom-16 md:bottom-20 left-1/2 -translate-x-1/2 z-[5] max-w-[78%] text-center"><span id="modal-photo-caption"></span></div>
+  <div class="absolute bottom-7 left-1/2 -translate-x-1/2 z-[5] flex gap-2.5" id="modal-photo-dots"></div>
+</div>
+
+<div id="modal-info" class="fixed inset-0 z-[100] hidden bg-black/85 items-start justify-center overflow-y-auto py-12 px-4">
+  <div class="relative bg-[#F6F6F6] max-w-2xl w-full">
+    <button onclick="closeModals()" class="absolute top-5 right-6 text-[#5a5a5a] hover:text-black text-3xl leading-none z-10">×</button>
+    <div class="aspect-[16/9] bg-cover bg-center" id="modal-info-photo"></div>
+    <div class="p-8 md:p-12">
+      <p class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79] mb-3" id="modal-info-location"></p>
+      <h2 class="font-heading italic text-3xl mb-6" id="modal-info-name"></h2>
+      <p class="text-[0.92rem] leading-relaxed text-[#2D2D2D] font-light whitespace-pre-line" id="modal-info-description"></p>
+      <h3 class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mt-10 mb-5">Six common questions</h3>
+      <div id="modal-info-faqs" class="border-t border-black/10"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+const ALL_VENUES = {
+  zakynthos:  { name: "Beachfront Villa Zakynthos", country: "Greece",   page: "greece.html"   },
+  casaNoor:   { name: "Casa Noor",                  country: "Portugal", page: "portugal.html" },
+  fonte:      { name: "Estate Fonte das Perdizes",  country: "Portugal", page: "portugal.html" },
+  santaPrima: { name: "Santa Prima",                country: "Spain",    page: "spain.html"    },
+  esBec:      { name: "Es Bec d'Aguila",            country: "Spain",    page: "spain.html"    }
+};
+
+const VENUES = {
+  santaPrima: {
+    name: "Santa Prima",
+    location: "Santa Ponça · Menorca · Spain",
+    hero: "assets/spain/santa-prima/02.jpg",
+    photos: [
+      { url: "assets/spain/santa-prima/02.jpg", caption: "The main house — aerial three-quarter view, 108 hectares around it" },
+      { url: "assets/spain/santa-prima/01.jpg", caption: "The estate facade, the pine tree above the door" },
+      { url: "assets/spain/santa-prima/08.jpg", caption: "The pool and garden at evening light" },
+      { url: "assets/spain/santa-prima/05.jpg", caption: "The main living room — antiques chosen slowly by the family" },
+      { url: "assets/spain/santa-prima/06.jpg", caption: "The dining room, set with linen for dinner" },
+      { url: "assets/spain/santa-prima/07.jpg", caption: "The 1789 chapel interior — the altar" },
+      { url: "assets/spain/santa-prima/04.jpg", caption: "The vaulted-stone living nook — original ceilings" },
+      { url: "assets/spain/santa-prima/13.jpg", caption: "A guest bedroom — south wing" },
+      { url: "assets/spain/santa-prima/14.jpg", caption: "The master bedroom — south-facing, Menorca light" },
+      { url: "assets/spain/santa-prima/09.jpg", caption: "The olive grove, aerial — the cove path begins here" },
+      { url: "assets/spain/santa-prima/10.jpg", caption: "Sunset over the estate" },
+      { url: "assets/spain/santa-prima/15.jpg", caption: "Cala Mitjana — where the private path ends, 2.5 km from the house" },
+      { url: "assets/spain/santa-prima/03.jpg", caption: "Facade close-up — the original green shutters" },
+      { url: "assets/spain/santa-prima/11.jpg", caption: "Interior stairs — the charm in the detail" },
+      { url: "assets/spain/santa-prima/12.jpg", caption: "Another guest bedroom" }
+    ],
+    description: "Santa Prima begins with a fourteenth-century watchtower — a silent guardian, the family who owns it calls it — and grows outward into an eighteenth-century farmhouse, a private chapel consecrated in 1789, and 108 hectares of protected Menorcan countryside. Vaulted ceilings are original. Furniture has come slowly from France, Portugal and Spain — antiques chosen by the family rather than a stylist. A private path runs through olive and pine to Cala Mitjana — 2.5 km of nobody but you. Buffet breakfast included; a private chef cooks dinner through July and August. House managers, daily housekeeping, MERAKI linens, fresh-cut flowers.",
+    faqs: [
+      { q: "How private is the estate?", a: "The farm sits within 108 hectares of protected Menorcan countryside — no neighbours, no through-traffic, only your party and the staff." },
+      { q: "How do guests reach the beach?", a: "A dedicated private path runs from the estate through olive and pine to Cala Mitjana, 2.5 km away — walkable, cyclable, or by short transfer." },
+      { q: "Is a chef included?", a: "A private chef is included in July and August. Outside high season, a chef can be arranged on request." },
+      { q: "Can the chapel be used for ceremonies?", a: "Yes, by arrangement — the chapel is consecrated and available for blessings, vows, and private services." },
+      { q: "How many guests does it sleep?", a: "12 guests across 6 bedrooms — best for two families, a small wedding group, or a 12-person retreat." },
+      { q: "What's the architectural story?", a: "An 18th-century main farmhouse built around a 14th-century defence tower, with a chapel dating to 1789. Recently restored — preservation rather than transformation." }
+    ]
+  },
+  esBec: {
+    name: "Es Bec d'Aguila",
+    location: "Alaior · Menorca · Spain",
+    hero: "assets/spain/es-bec/02.jpg",
+    photos: [
+      { url: "assets/spain/es-bec/02.jpg", caption: "The pool and covered terrace, the hilltop facade above" },
+      { url: "assets/spain/es-bec/03.jpg", caption: "The vaulted entrance hall — the blue door" },
+      { url: "assets/spain/es-bec/05.jpg", caption: "The arched white living room with rattan chairs" },
+      { url: "assets/spain/es-bec/06.jpg", caption: "The covered terrace dining, rattan pendants" },
+      { url: "assets/spain/es-bec/09.jpg", caption: "The living room — leather sofa, brass sconces" },
+      { url: "assets/spain/es-bec/10.jpg", caption: "The bar with fireplace and green velvet chairs" },
+      { url: "assets/spain/es-bec/08.jpg", caption: "The kitchen and breakfast bar — copper pendants" },
+      { url: "assets/spain/es-bec/11.jpg", caption: "The dramatic teal-walled dining room" },
+      { url: "assets/spain/es-bec/07.jpg", caption: "The arched dining room with sculpture, round black table" },
+      { url: "assets/spain/es-bec/15.jpg", caption: "The library — burgundy walls, yellow chairs" },
+      { url: "assets/spain/es-bec/13.jpg", caption: "The kitchen detail — travertine table, slow light" },
+      { url: "assets/spain/es-bec/01.jpg", caption: "The black cabinet — ceramic detail from the workshop" },
+      { url: "assets/spain/es-bec/14.jpg", caption: "The gym corner — boxing gloves on the ladder" },
+      { url: "assets/spain/es-bec/04.jpg", caption: "A window onto the Menorcan countryside" },
+      { url: "assets/spain/es-bec/12.jpg", caption: "A window onto rolling hills — the south coast beyond" }
+    ],
+    description: "Es Bec d'Aguila — the Eagle's Beak — was built in the nineteenth century by a family of Menorcan merchants who wanted a place to hunt, entertain and disappear. 60 hectares between Alaior and Es Migjorn; 1,000m² across three levels. The ground floor opens onto a French garden with fountain and pavilion. The first floor is where everyone gathers — green-marble bar, library, fireplace. The second floor is quieter: minimalist, the place you go when you want to be alone with a book. Eleven en-suite bedrooms, a 25m pool, gym, yoga studio, cinema room, ceramic workshop. Farmer Xisco brings the eggs and honey.",
+    faqs: [
+      { q: "How many guests does it sleep?", a: "22 in the main eleven bedrooms, plus a children's room sleeping up to six. Each main bedroom has a king bed and en-suite." },
+      { q: "How is catering handled?", a: "A resident cook prepares Mediterranean menus using organic produce from the property's own gardens. Dietary requirements accommodated." },
+      { q: "Is the estate accessible?", a: "Yes — the ground floor, one bedroom, the outdoor spaces and the pool are all fully accessible." },
+      { q: "How far is the beach?", a: "15 minutes by car. Mahón 20 minutes, Ciudadela 25, airport 20 minutes." },
+      { q: "What can the concierge arrange?", a: "Tennis, yoga, fitness training, pottery workshops, sailing, kayaking, horse trails, guided tours, spa visits, transfers, childcare." },
+      { q: "Suitable for a corporate retreat or large family event?", a: "Yes — frequently rented for seminars, weddings, multi-generational gatherings, milestone celebrations. 60 hectares means plenty of room." }
+    ]
+  }
+};
+
+let currentVenue = null, currentPhotoIndex = 0;
+function openSlider(key) { currentVenue = VENUES[key]; currentPhotoIndex = 0; renderDots(); showPhoto(); const m = document.getElementById('modal-photos'); m.classList.remove('hidden'); m.classList.add('flex'); document.body.classList.add('modal-open'); }
+function openInfo(key) {
+  const v = VENUES[key]; currentVenue = v;
+  document.getElementById('modal-info-photo').style.backgroundImage = `url('${v.hero}')`;
+  document.getElementById('modal-info-location').textContent = v.location;
+  document.getElementById('modal-info-name').textContent = v.name;
+  document.getElementById('modal-info-description').textContent = v.description;
+  document.getElementById('modal-info-faqs').innerHTML = v.faqs.map(f => `<details class="border-b border-black/10 group"><summary class="py-5 cursor-pointer font-heading italic text-[1.05rem] flex justify-between items-start gap-4 list-none [&::-webkit-details-marker]:hidden hover:text-[#8c8c79] transition-colors"><span>${f.q}</span><span class="text-2xl text-[#8c8c79] group-open:rotate-45 transition-transform leading-none mt-0.5 flex-shrink-0">+</span></summary><p class="pb-6 text-[0.88rem] font-light leading-[1.75] text-[#2D2D2D]">${f.a}</p></details>`).join('');
+  const m = document.getElementById('modal-info'); m.classList.remove('hidden'); m.classList.add('flex'); document.body.classList.add('modal-open');
+}
+function closeModals() { ['modal-photos','modal-info'].forEach(id => { const el = document.getElementById(id); el.classList.add('hidden'); el.classList.remove('flex'); }); document.body.classList.remove('modal-open'); }
+function renderDots() { document.getElementById('modal-photo-dots').innerHTML = currentVenue.photos.map((_, i) => `<button class="modal-dot" onclick="goPhoto(${i})"></button>`).join(''); }
+function showPhoto() {
+  const p = currentVenue.photos[currentPhotoIndex];
+  document.getElementById('modal-photo-img').src = p.url;
+  document.getElementById('modal-photo-caption').textContent = p.caption || '';
+  document.getElementById('modal-photo-counter').textContent = `${currentPhotoIndex + 1} / ${currentVenue.photos.length}`;
+  document.querySelectorAll('#modal-photo-dots .modal-dot').forEach((d, i) => d.classList.toggle('active', i === currentPhotoIndex));
+}
+function goPhoto(i) { currentPhotoIndex = i; showPhoto(); }
+function prevPhoto() { currentPhotoIndex = (currentPhotoIndex - 1 + currentVenue.photos.length) % currentVenue.photos.length; showPhoto(); }
+function nextPhoto() { currentPhotoIndex = (currentPhotoIndex + 1) % currentVenue.photos.length; showPhoto(); }
+document.addEventListener('keydown', e => {
+  const open = !document.getElementById('modal-photos').classList.contains('hidden') || !document.getElementById('modal-info').classList.contains('hidden');
+  if (!open) return;
+  if (e.key === 'ArrowLeft' && !document.getElementById('modal-photos').classList.contains('hidden')) prevPhoto();
+  else if (e.key === 'ArrowRight' && !document.getElementById('modal-photos').classList.contains('hidden')) nextPhoto();
+  else if (e.key === 'Escape') closeModals();
+});
+['modal-photos','modal-info'].forEach(id => { document.getElementById(id).addEventListener('click', e => { if (e.target.id === id) closeModals(); }); });
+
+const FAV_KEY = 'nomadikas-proposal-favs';
+function getFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; } }
+function setFavs(list) { localStorage.setItem(FAV_KEY, JSON.stringify(list)); updateFavUI(); }
+function toggleFav(key) { const favs = getFavs(); const i = favs.indexOf(key); if (i === -1) favs.push(key); else favs.splice(i, 1); setFavs(favs); }
+function clearFavs() { setFavs([]); }
+function copyFavs() { const favs = getFavs(); if (favs.length === 0) return; const names = favs.map(k => ALL_VENUES[k]?.name + ' (' + ALL_VENUES[k]?.country + ')').join('\n- '); navigator.clipboard.writeText('My shortlist:\n- ' + names).then(() => { const s = document.getElementById('copy-status'); s.style.opacity = '1'; setTimeout(() => s.style.opacity = '0', 2000); }); }
+function updateFavUI() {
+  const favs = getFavs();
+  document.querySelectorAll('[data-fav]').forEach(btn => { const key = btn.dataset.fav; const isFav = favs.includes(key); btn.classList.toggle('fav-active', isFav); btn.querySelector('.fav-label').textContent = isFav ? 'Saved' : 'Save to shortlist'; });
+  const tray = document.getElementById('fav-tray'); const count = favs.length;
+  tray.style.transform = count > 0 ? 'translateY(0)' : 'translateY(160%)';
+  document.getElementById('fav-count').textContent = count;
+  document.getElementById('fav-list').innerHTML = favs.map(k => { const v = ALL_VENUES[k]; return `<li class="flex items-start justify-between gap-2"><span>· ${v.name}</span><span class="text-[0.65rem] text-[#888]">${v.country}</span></li>`; }).join('');
+  const names = favs.map(k => '- ' + ALL_VENUES[k].name + ' (' + ALL_VENUES[k].country + ')').join('\n');
+  document.getElementById('fav-mailto').href = 'mailto:darina@nomadikas.com?subject=' + encodeURIComponent('My shortlist from the private selection') + '&body=' + encodeURIComponent('Hi Darina,\n\nThese are the homes I keep coming back to:\n\n' + names + '\n\nWhen could we set up a call to talk through dates?\n\nThank you.');
+}
+updateFavUI();
+
+new Swiper('.exp-swiper', {
+  slidesPerView: 1,
+  spaceBetween: 18,
+  loop: true,
+  navigation: { nextEl: '.exp-next', prevEl: '.exp-prev' },
+  breakpoints: { 640: { slidesPerView: 2, spaceBetween: 20 }, 1024: { slidesPerView: 3, spaceBetween: 24 } }
+});
+lucide.createIcons();
+</script>
+</body>
+</html>

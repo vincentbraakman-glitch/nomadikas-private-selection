@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Greece — A private selection · Nomadikas</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Josefin+Sans:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<style>
+  body { font-family: 'Montserrat', sans-serif; background: #F6F6F6; color: #2D2D2D; }
+  .font-heading { font-family: 'Amiri', serif; }
+  .font-josefin { font-family: 'Josefin Sans', sans-serif; }
+  .photo-hover { transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
+  .group:hover .photo-hover { transform: scale(1.03); }
+  @keyframes ken-burns { 0%{transform:scale(1.05) translate(0,0);} 50%{transform:scale(1.12) translate(-1.5%,1%);} 100%{transform:scale(1.05) translate(0,0);} }
+  .hero-bg { animation: ken-burns 36s ease-in-out infinite; }
+  body.modal-open { overflow: hidden; }
+  .fav-btn.fav-active svg { fill: #fff; stroke: #fff; }
+  .fav-btn.fav-active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  .price-strip { border-top: 1px solid rgba(0,0,0,0.10); }
+  @keyframes pulse-soft { 0%,100%{transform:translateY(0);opacity:0.85;} 50%{transform:translateY(-3px);opacity:1;} }
+  .pulse-soft { animation: pulse-soft 2.2s ease-in-out infinite; }
+  .exp-photo { transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+  .exp-card:hover .exp-photo { transform: scale(1.06); }
+  .exp-default { transition: opacity 0.5s ease; }
+  .exp-card:hover .exp-default { opacity: 0; }
+  .exp-hover { opacity: 0; transform: translateY(32px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+  .exp-card:hover .exp-hover { opacity: 1; transform: translateY(0); }
+  .exp-dark { opacity: 0; transition: opacity 0.5s ease; }
+  .exp-card:hover .exp-dark { opacity: 1; }
+  .exp-swiper { overflow: visible; }
+  .exp-swiper .swiper-slide { height: auto; }
+  #modal-photos { background: #141414; }
+  .modal-fade-top { position: absolute; left: 0; right: 0; top: 0; height: 140px; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0) 100%); }
+  .modal-fade-bot { position: absolute; left: 0; right: 0; bottom: 0; height: 200px; z-index: 2; pointer-events: none; background: linear-gradient(0deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0) 100%); }
+  .modal-dot { width: 2rem; height: 2px; background: rgba(255,255,255,0.3); cursor: pointer; border: none; padding: 0; transition: background 0.3s ease; }
+  .modal-dot.active { background: #faf8f3; }
+  .modal-photo-arrow { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.25); backdrop-filter: blur(6px); transition: all 0.3s ease; }
+  .modal-photo-arrow:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.5); }
+  .modal-photo-caption { background: rgba(10,10,10,0.55); backdrop-filter: blur(6px); color: rgba(250,248,243,0.95); font-family: 'Amiri', serif; font-style: italic; font-size: 0.95rem; letter-spacing: 0.01em; padding: 0.55rem 1.25rem; transition: opacity 0.4s ease; }
+</style>
+</head>
+<body>
+
+<header class="sticky top-0 z-40 px-6 md:px-8 py-4 bg-[#F6F6F6]/95 backdrop-blur-md border-b border-black/8">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-6">
+    <a href="index.html" class="block"><img src="https://nomadikas.com/wp-content/uploads/2025/01/cropped-cropped-Untitled-design-1-300x75.webp" alt="Nomadikas" class="h-8 md:h-9" /></a>
+    <a href="index.html" class="hidden md:flex items-center gap-2 font-josefin uppercase tracking-[0.28em] text-[0.6rem] text-[#5a5a5a] hover:text-black transition-colors"><span>←</span> All countries</a>
+    <div class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79]">Greece</div>
+  </div>
+</header>
+
+<section class="relative h-[62vh] min-h-[480px] overflow-hidden">
+  <div class="hero-bg absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1759502759697-daba569fc8d7?w=2000&q=80');"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/15 to-black/60"></div>
+  <div class="relative z-10 h-full flex flex-col justify-center items-center text-center px-6 text-white">
+    <p class="font-josefin uppercase tracking-[0.42em] text-[0.62rem] mb-6 opacity-85">Greece · Zakynthos · One home</p>
+    <h1 class="font-heading italic font-light leading-[1.05]" style="font-size: clamp(2.8rem, 5.5vw, 4.8rem);">The Ionian.<br />A private path <em class="text-[#d4d2c5]">to the sea.</em></h1>
+  </div>
+</section>
+
+<section class="px-6 py-20 max-w-3xl mx-auto text-center">
+  <p class="font-light leading-relaxed text-[#5a5a5a] text-[1.05rem]">
+    On the quiet western coast of Zakynthos — in a village that still belongs to its villagers — one house opens directly onto the Ionian. We chose this single home, alone, because it does what the rest of the island rarely lets you have: the beach, the privacy, the silence — all in the same week.
+  </p>
+</section>
+
+<section class="px-6 mb-24 max-w-6xl mx-auto">
+  <article id="venue-zakynthos" class="grid md:grid-cols-2 bg-[#FBF9F4] border border-black/8 overflow-hidden">
+
+    <div class="flex flex-col order-1">
+      <button onclick="openSlider('zakynthos')" class="relative block w-full overflow-hidden bg-black cursor-zoom-in group flex-1">
+        <div class="aspect-[4/5] md:aspect-auto md:min-h-[620px] md:h-full bg-cover bg-center photo-hover" style="background-image: url('https://nomadikas.com/wp-content/uploads/2024/02/4.jpg');"></div>
+        <span class="absolute top-7 left-7 font-heading italic text-white/85" style="font-size: 1.8rem;">01</span>
+        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none"><div class="bg-white/85 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center text-lg text-[#1a1a1a]">‹</div></div>
+        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none"><div class="bg-white/85 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center text-lg text-[#1a1a1a]">›</div></div>
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur text-white px-4 py-2 font-josefin uppercase tracking-[0.32em] text-[0.55rem] pulse-soft">Click to view 11 photos</div>
+      </button>
+      <p class="font-heading italic text-[#5a5a5a] text-[0.92rem] leading-snug px-6 py-4 bg-[#FBF9F4]">The Ionian seen from the gardens — olive and cypress in the foreground, two infinity pools below, a private stretch of beach hidden just out of frame.</p>
+    </div>
+
+    <div class="flex flex-col justify-between p-8 md:p-12 lg:p-14 order-2">
+      <div>
+        <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-6">Zakynthos · Ionian · Greece</p>
+        <h2 class="font-heading italic leading-[1] mb-4" style="font-size: clamp(2.4rem, 4.2vw, 3.4rem);">Beachfront Villa Zakynthos</h2>
+        <p class="font-heading italic text-[1.05rem] text-[#5a5a5a] mb-7 leading-snug">a bohemian eight-bedroom on a private stretch of sea</p>
+        <p class="text-[0.92rem] leading-[1.7] text-[#2D2D2D] font-light mb-8 max-w-[44ch]">An eight-bedroom house on the quiet western coast, opening directly onto the sea. Two infinity pools draw the line between you and the Ionian. Olive and cypress at the door, a private stretch of beach below, a chef working in an outdoor kitchen under vines. Sea turtles snorkel past at breakfast.</p>
+
+        <div class="grid grid-cols-3 gap-x-8 gap-y-4 mb-8">
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">16</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">guests</p></div>
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">8</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">bedrooms</p></div>
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">2</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">infinity pools</p></div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-x-4 gap-y-3 mb-7 pb-7 border-b border-black/10">
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="waves" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Private beach</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="droplet" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>2 infinity pools</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="utensils-crossed" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Private chef</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="utensils" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Outdoor kitchen</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="flower" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Yoga equipment</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="heart-pulse" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Wellness team</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          <button onclick="openInfo('zakynthos')" class="px-5 py-3 border border-black/30 hover:bg-black hover:text-white transition-colors font-josefin uppercase tracking-[0.28em] text-[0.55rem] flex items-center gap-2"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg><span>Description &amp; FAQs</span></button>
+          <button onclick="toggleFav('zakynthos')" data-fav="zakynthos" class="fav-btn px-5 py-3 border border-black/30 transition-colors font-josefin uppercase tracking-[0.28em] text-[0.55rem] flex items-center gap-2"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="fav-label">Save to shortlist</span></button>
+        </div>
+        <div class="price-strip pt-5">
+          <div class="flex items-end justify-between gap-4 mb-3">
+            <div>
+              <p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mb-1">Catering · from</p>
+              <p class="font-heading italic text-[1.6rem] leading-none">€185 <span class="text-sm text-[#5a5a5a] not-italic">/ person / day · full board</span></p>
+            </div>
+            <span class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#888]">Indicative</span>
+          </div>
+          <p class="text-[0.78rem] text-[#5a5a5a] font-light"><span class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mr-2">Concierge</span>Dedicated team — included.</p>
+        </div>
+      </div>
+    </div>
+
+  </article>
+</section>
+
+<section class="py-24 md:py-32 bg-[#1a1a1a] text-white/85 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-3xl mb-14">
+      <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-5">Signature experiences</p>
+      <h2 class="font-heading italic font-light leading-[1.1] text-white" style="font-size: clamp(2.4rem, 4.2vw, 3.4rem);">Experiences that<br />define the journey.</h2>
+    </div>
+
+    <div class="relative">
+      <button class="exp-prev absolute -left-2 md:-left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 border border-white/30 bg-black/40 backdrop-blur hover:bg-white/15 hover:border-white/60 text-white flex items-center justify-center text-2xl leading-none transition-all">‹</button>
+      <button class="exp-next absolute -right-2 md:-right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 border border-white/30 bg-black/40 backdrop-blur hover:bg-white/15 hover:border-white/60 text-white flex items-center justify-center text-2xl leading-none transition-all">›</button>
+
+      <div class="swiper exp-swiper"><div class="swiper-wrapper">
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1748540459503-19efc015143b?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Bochali · Zakynthos</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">Bostani<br>farm-to-table</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Bochali · Zakynthos</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">Bostani<br>farm-to-table</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">A working organic farm above town — the chef cooks with what was picked that morning. Long table on the terrace, Zakynthos olive oil, your group only.</p></div>
+        </div></div>
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1759502759697-daba569fc8d7?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Navagio · Western coast</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A private boat to<br>the Shipwreck</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Navagio · Western coast</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A private boat to<br>the Shipwreck</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">The shipwreck cove on every postcard — but at first light, before the day boats arrive. Just your party in the bay.</p></div>
+        </div></div>
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1568660357733-823cbddb0f6a?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Laganas Bay</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">Snorkel with<br>the loggerheads</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Laganas Bay</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">Snorkel with<br>the loggerheads</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">Zakynthos protects the last Mediterranean nesting beach for loggerhead turtles. A marine biologist guides you through the bay before tourists arrive.</p></div>
+        </div></div>
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1697494894663-1d5e026c1b5d?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Marathonisi · Turtle Island</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A sunset sail<br>to the south</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Marathonisi · Turtle Island</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A sunset sail<br>to the south</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">A private catamaran out to Turtle Island for sundown — chilled Assyrtiko, dinner on the deck, the lighthouse winking.</p></div>
+        </div></div>
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1760533536461-714a23877e2d?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">A headland near you</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A long table<br>above the sea</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">A headland near you</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A long table<br>above the sea</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">The villa's chef sets a single long table on a private headland. Grilled fish, taramasalata, ouzo as the sun drops.</p></div>
+        </div></div>
+
+        <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+          <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1561906814-23da9a8bfee0?w=900&q=80');"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+          <div class="exp-dark absolute inset-0 bg-black/75"></div>
+          <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Skinaria · The hills</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A cellar lunch<br>with the vigneron</h3></div>
+          <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Skinaria · The hills</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A cellar lunch<br>with the vigneron</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">A small-batch winery in the hills — verdea and robola from old vines, lunch on the terrace with the family.</p></div>
+        </div></div>
+
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="px-8 py-10 text-center bg-[#F6F6F6] border-t border-black/8">
+  <img src="https://nomadikas.com/wp-content/uploads/2025/01/cropped-cropped-Untitled-design-1-300x75.webp" alt="Nomadikas" class="h-7 mx-auto mb-3 opacity-75" />
+  <p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">Greece · Zakynthos · private proposal</p>
+  <p class="mt-3 font-josefin uppercase tracking-[0.28em] text-[0.55rem] text-[#888]"><a href="index.html" class="border-b border-[#8c8c79] hover:text-black hover:border-black">← Look at Portugal or Spain</a></p>
+</footer>
+
+<div id="fav-tray" class="fixed bottom-6 right-6 z-40 bg-white shadow-2xl border border-black/15 px-6 py-5 max-w-[320px] transition-all duration-500" style="transform: translateY(160%);">
+  <div class="flex items-center justify-between mb-3"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">Your shortlist · <span id="fav-count">0</span></p><button onclick="clearFavs()" class="text-[#888] hover:text-black text-lg leading-none">×</button></div>
+  <ul id="fav-list" class="mb-4 text-[0.85rem] font-light text-[#2D2D2D] space-y-1"></ul>
+  <div class="flex gap-2"><a id="fav-mailto" href="#" class="flex-1 px-4 py-3 bg-black text-white text-center font-josefin uppercase tracking-[0.28em] text-[0.55rem] hover:bg-[#8c8c79] transition-colors">Email to Darina</a><button onclick="copyFavs()" class="px-3 py-3 border border-black/20 text-[#5a5a5a] hover:border-black hover:text-black transition-colors" title="Copy list"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button></div>
+  <p id="copy-status" class="mt-2 font-josefin uppercase tracking-[0.32em] text-[0.5rem] text-[#8c8c79] opacity-0 transition-opacity">Copied to clipboard</p>
+</div>
+
+<div id="modal-photos" class="fixed inset-0 z-[100] hidden items-center justify-center">
+  <div class="modal-fade-top"></div>
+  <div class="modal-fade-bot"></div>
+  <div class="absolute top-6 left-6 md:top-8 md:left-8 z-[5] bg-black/30 backdrop-blur text-[#faf8f3] px-4 py-2 font-josefin uppercase tracking-[0.25em] text-[0.7rem]" id="modal-photo-counter">1 / 11</div>
+  <button onclick="closeModals()" class="modal-photo-arrow absolute top-6 right-6 md:top-8 md:right-8 z-[5] w-12 h-12 md:w-14 md:h-14 text-[#faf8f3] flex items-center justify-center"><svg class="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  <button onclick="prevPhoto()" class="modal-photo-arrow absolute left-3 md:left-8 top-1/2 -translate-y-1/2 z-[5] w-12 h-12 md:w-14 md:h-14 text-[#faf8f3] flex items-center justify-center text-2xl leading-none">‹</button>
+  <button onclick="nextPhoto()" class="modal-photo-arrow absolute right-3 md:right-8 top-1/2 -translate-y-1/2 z-[5] w-12 h-12 md:w-14 md:h-14 text-[#faf8f3] flex items-center justify-center text-2xl leading-none">›</button>
+  <img id="modal-photo-img" class="max-w-[90%] max-h-[80vh] object-contain relative z-[1]" src="" alt="" />
+  <div class="modal-photo-caption absolute bottom-16 md:bottom-20 left-1/2 -translate-x-1/2 z-[5] max-w-[78%] text-center"><span id="modal-photo-caption"></span></div>
+  <div class="absolute bottom-7 left-1/2 -translate-x-1/2 z-[5] flex gap-2.5" id="modal-photo-dots"></div>
+</div>
+
+<div id="modal-info" class="fixed inset-0 z-[100] hidden bg-black/85 items-start justify-center overflow-y-auto py-12 px-4">
+  <div class="relative bg-[#F6F6F6] max-w-2xl w-full">
+    <button onclick="closeModals()" class="absolute top-5 right-6 text-[#5a5a5a] hover:text-black text-3xl leading-none z-10">×</button>
+    <div class="aspect-[16/9] bg-cover bg-center" id="modal-info-photo"></div>
+    <div class="p-8 md:p-12">
+      <p class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79] mb-3" id="modal-info-location"></p>
+      <h2 class="font-heading italic text-3xl mb-6" id="modal-info-name"></h2>
+      <p class="text-[0.92rem] leading-relaxed text-[#2D2D2D] font-light whitespace-pre-line" id="modal-info-description"></p>
+      <h3 class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mt-10 mb-5">Six common questions</h3>
+      <div id="modal-info-faqs" class="border-t border-black/10"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+const ALL_VENUES = {
+  zakynthos:  { name: "Beachfront Villa Zakynthos", country: "Greece",   page: "greece.html"   },
+  casaNoor:   { name: "Casa Noor",                  country: "Portugal", page: "portugal.html" },
+  fonte:      { name: "Estate Fonte das Perdizes",  country: "Portugal", page: "portugal.html" },
+  santaPrima: { name: "Santa Prima",                country: "Spain",    page: "spain.html"    },
+  esBec:      { name: "Es Bec d'Aguila",            country: "Spain",    page: "spain.html"    }
+};
+
+const VENUES = {
+  zakynthos: {
+    name: "Beachfront Villa Zakynthos",
+    location: "Zakynthos · Ionian · Greece",
+    hero: "https://nomadikas.com/wp-content/uploads/2024/02/4.jpg",
+    photos: [
+      { url: "https://nomadikas.com/wp-content/uploads/2024/02/4.jpg", caption: "The villa from the gardens — the Ionian beyond" },
+      { url: "https://nomadikas.com/wp-content/uploads/2023/10/5.jpg", caption: "One of two infinity pools, drawn against the sea" },
+      { url: "https://nomadikas.com/wp-content/uploads/2024/01/16.jpg", caption: "A guest bedroom — pale stone, soft linen" },
+      { url: "https://nomadikas.com/wp-content/uploads/2023/10/15.jpg", caption: "The main living room opening to the bay" },
+      { url: "https://nomadikas.com/wp-content/uploads/2023/10/10.jpg", caption: "The dining terrace under cypress" },
+      { url: "https://nomadikas.com/wp-content/uploads/2024/01/17.jpg", caption: "A bathroom with a window on the water" },
+      { url: "https://nomadikas.com/wp-content/uploads/2023/10/14.jpg", caption: "The outdoor kitchen — under vines" },
+      { url: "https://nomadikas.com/wp-content/uploads/2023/10/13.jpg", caption: "A bedroom with a balcony on the Ionian" },
+      { url: "https://nomadikas.com/wp-content/uploads/2023/10/11.jpg", caption: "The pool at twilight, the sun gone" },
+      { url: "https://nomadikas.com/wp-content/uploads/2024/02/22.jpg", caption: "The villa from the beach below" },
+      { url: "https://nomadikas.com/wp-content/uploads/2024/02/25.jpg", caption: "The terrace at sunset — the table set" }
+    ],
+    description: "An eight-bedroom house on the quiet western coast, opening directly onto the Ionian. Two infinity pools draw a line between you and the sea. Olive and cypress trees frame the gardens; pale stone, soft linen, en-suite bathrooms throughout. Mornings begin slowly: coffee at the daybed, a swim before breakfast, then a walk down to a private stretch of beach where the only footprints are yours. Two kitchens — one inside, one under vines — so a private chef can work without interrupting the rhythm of the house. The villa is wired discreetly: Bluetooth speakers tucked into the architecture, smart TVs hidden when you don't want them.",
+    faqs: [
+      { q: "Is the beach truly private?", a: "The villa fronts a stretch of beach with direct access. While no Greek beach is legally \"owned,\" the gardens and terraces make the foreshore feel exclusive — most days you'll have it to yourselves." },
+      { q: "Can a private chef be arranged?", a: "Yes. A resident or visiting chef can be booked for breakfast, lunch, dinner, or a full week of menus tailored to the group." },
+      { q: "What's the catering set-up?", a: "Two fully equipped kitchens — one inside the house, one outdoor under vines. The chef works in either, depending on the meal." },
+      { q: "Is the villa suitable for a retreat?", a: "Yes — regularly used for yoga and wellness weeks, with outdoor and indoor practice space and a separate kitchen for retreat dining." },
+      { q: "What are the payment terms?", a: "A deposit is due within three business days of signing the contract; the remaining balance is settled 90 days before arrival." },
+      { q: "How does check-in work?", a: "Check-in 4:00 PM, check-out 10:00 AM — both flex-able where the calendar allows. The concierge meets you at arrival." }
+    ]
+  }
+};
+
+let currentVenue = null, currentPhotoIndex = 0;
+function openSlider(key) { currentVenue = VENUES[key]; currentPhotoIndex = 0; renderDots(); showPhoto(); const m = document.getElementById('modal-photos'); m.classList.remove('hidden'); m.classList.add('flex'); document.body.classList.add('modal-open'); }
+function openInfo(key) {
+  const v = VENUES[key]; currentVenue = v;
+  document.getElementById('modal-info-photo').style.backgroundImage = `url('${v.hero}')`;
+  document.getElementById('modal-info-location').textContent = v.location;
+  document.getElementById('modal-info-name').textContent = v.name;
+  document.getElementById('modal-info-description').textContent = v.description;
+  document.getElementById('modal-info-faqs').innerHTML = v.faqs.map(f => `<details class="border-b border-black/10 group"><summary class="py-5 cursor-pointer font-heading italic text-[1.05rem] flex justify-between items-start gap-4 list-none [&::-webkit-details-marker]:hidden hover:text-[#8c8c79] transition-colors"><span>${f.q}</span><span class="text-2xl text-[#8c8c79] group-open:rotate-45 transition-transform leading-none mt-0.5 flex-shrink-0">+</span></summary><p class="pb-6 text-[0.88rem] font-light leading-[1.75] text-[#2D2D2D]">${f.a}</p></details>`).join('');
+  const m = document.getElementById('modal-info'); m.classList.remove('hidden'); m.classList.add('flex'); document.body.classList.add('modal-open');
+}
+function closeModals() { ['modal-photos','modal-info'].forEach(id => { const el = document.getElementById(id); el.classList.add('hidden'); el.classList.remove('flex'); }); document.body.classList.remove('modal-open'); }
+function renderDots() { document.getElementById('modal-photo-dots').innerHTML = currentVenue.photos.map((_, i) => `<button class="modal-dot" onclick="goPhoto(${i})"></button>`).join(''); }
+function showPhoto() {
+  const p = currentVenue.photos[currentPhotoIndex];
+  document.getElementById('modal-photo-img').src = p.url;
+  document.getElementById('modal-photo-caption').textContent = p.caption || '';
+  document.getElementById('modal-photo-counter').textContent = `${currentPhotoIndex + 1} / ${currentVenue.photos.length}`;
+  document.querySelectorAll('#modal-photo-dots .modal-dot').forEach((d, i) => d.classList.toggle('active', i === currentPhotoIndex));
+}
+function goPhoto(i) { currentPhotoIndex = i; showPhoto(); }
+function prevPhoto() { currentPhotoIndex = (currentPhotoIndex - 1 + currentVenue.photos.length) % currentVenue.photos.length; showPhoto(); }
+function nextPhoto() { currentPhotoIndex = (currentPhotoIndex + 1) % currentVenue.photos.length; showPhoto(); }
+document.addEventListener('keydown', e => {
+  const open = !document.getElementById('modal-photos').classList.contains('hidden') || !document.getElementById('modal-info').classList.contains('hidden');
+  if (!open) return;
+  if (e.key === 'ArrowLeft' && !document.getElementById('modal-photos').classList.contains('hidden')) prevPhoto();
+  else if (e.key === 'ArrowRight' && !document.getElementById('modal-photos').classList.contains('hidden')) nextPhoto();
+  else if (e.key === 'Escape') closeModals();
+});
+['modal-photos','modal-info'].forEach(id => { document.getElementById(id).addEventListener('click', e => { if (e.target.id === id) closeModals(); }); });
+
+const FAV_KEY = 'nomadikas-proposal-favs';
+function getFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; } }
+function setFavs(list) { localStorage.setItem(FAV_KEY, JSON.stringify(list)); updateFavUI(); }
+function toggleFav(key) { const favs = getFavs(); const i = favs.indexOf(key); if (i === -1) favs.push(key); else favs.splice(i, 1); setFavs(favs); }
+function clearFavs() { setFavs([]); }
+function copyFavs() { const favs = getFavs(); if (favs.length === 0) return; const names = favs.map(k => ALL_VENUES[k]?.name + ' (' + ALL_VENUES[k]?.country + ')').join('\n- '); navigator.clipboard.writeText('My shortlist:\n- ' + names).then(() => { const s = document.getElementById('copy-status'); s.style.opacity = '1'; setTimeout(() => s.style.opacity = '0', 2000); }); }
+function updateFavUI() {
+  const favs = getFavs();
+  document.querySelectorAll('[data-fav]').forEach(btn => { const key = btn.dataset.fav; const isFav = favs.includes(key); btn.classList.toggle('fav-active', isFav); btn.querySelector('.fav-label').textContent = isFav ? 'Saved' : 'Save to shortlist'; });
+  const tray = document.getElementById('fav-tray'); const count = favs.length;
+  tray.style.transform = count > 0 ? 'translateY(0)' : 'translateY(160%)';
+  document.getElementById('fav-count').textContent = count;
+  document.getElementById('fav-list').innerHTML = favs.map(k => { const v = ALL_VENUES[k]; return `<li class="flex items-start justify-between gap-2"><span>· ${v.name}</span><span class="text-[0.65rem] text-[#888]">${v.country}</span></li>`; }).join('');
+  const names = favs.map(k => '- ' + ALL_VENUES[k].name + ' (' + ALL_VENUES[k].country + ')').join('\n');
+  document.getElementById('fav-mailto').href = 'mailto:darina@nomadikas.com?subject=' + encodeURIComponent('My shortlist from the private selection') + '&body=' + encodeURIComponent('Hi Darina,\n\nThese are the homes I keep coming back to:\n\n' + names + '\n\nWhen could we set up a call to talk through dates?\n\nThank you.');
+}
+updateFavUI();
+
+new Swiper('.exp-swiper', {
+  slidesPerView: 1,
+  spaceBetween: 18,
+  loop: true,
+  navigation: { nextEl: '.exp-next', prevEl: '.exp-prev' },
+  breakpoints: { 640: { slidesPerView: 2, spaceBetween: 20 }, 1024: { slidesPerView: 3, spaceBetween: 24 } }
+});
+lucide.createIcons();
+</script>
+</body>
+</html>

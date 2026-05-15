@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A private selection — Nomadikas</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Josefin+Sans:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  body { font-family: 'Montserrat', sans-serif; background: #F6F6F6; color: #2D2D2D; }
+  .font-heading { font-family: 'Amiri', serif; }
+  .font-josefin { font-family: 'Josefin Sans', sans-serif; }
+
+  .country-card .photo { transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
+  .country-card:hover .photo { transform: scale(1.03); }
+  .country-card .underline { transition: all 0.4s ease; }
+  .country-card:hover .underline { color: #1a1a1a; border-color: #1a1a1a; }
+
+  /* MAP — keep colours readable, light filter only to soften */
+  #map { width: 100%; height: 100%; min-height: 520px; background: #d8e2ec; }
+  .leaflet-container { background: #d8e2ec !important; font-family: 'Montserrat', sans-serif; }
+  .leaflet-tile-pane { filter: saturate(0.92) brightness(0.98); }
+  .leaflet-control-zoom { display: none; }
+  .leaflet-control-attribution { display: none; }
+
+  /* Pulse pins */
+  @keyframes pin-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(26, 26, 26, 0.55), 0 0 0 0 rgba(140, 140, 121, 0.45); }
+    50%      { box-shadow: 0 0 0 16px rgba(26, 26, 26, 0), 0 0 0 26px rgba(140, 140, 121, 0); }
+  }
+  .nomadikas-pin {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: #1a1a1a; border: 3px solid #faf8f3;
+    cursor: pointer;
+    animation: pin-pulse 2.6s ease-in-out infinite;
+    transition: transform 0.4s ease;
+  }
+  .nomadikas-pin-wrap { position: relative; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; }
+  .nomadikas-pin-wrap:hover .nomadikas-pin { transform: scale(1.5); }
+  .nomadikas-pin-label {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    margin-top: 12px; font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.6rem; letter-spacing: 0.32em; text-transform: uppercase; color: #1a1a1a;
+    white-space: nowrap; pointer-events: none;
+    background: rgba(250, 248, 243, 0.92); padding: 4px 9px;
+  }
+
+  .leaflet-popup-content-wrapper { border-radius: 0; box-shadow: 0 16px 44px rgba(0,0,0,0.18); padding: 0; }
+  .leaflet-popup-content { margin: 0; padding: 14px 20px; }
+  .leaflet-popup-content a { color: #1a1a1a; text-decoration: none; display: block; font-family: 'Amiri', serif; font-style: italic; font-size: 1.05rem; }
+  .leaflet-popup-content a:hover { color: #8c8c79; }
+  .leaflet-popup-content small { font-family: 'Josefin Sans', sans-serif; font-style: normal; letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.55rem; color: #8c8c79; display: block; margin-top: 4px; }
+  .leaflet-popup-tip { background: white; }
+</style>
+</head>
+<body>
+
+<header class="sticky top-0 z-50 px-8 py-4 bg-[#F6F6F6]/95 backdrop-blur-md border-b border-black/8">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <a href="index.html" class="block"><img src="https://nomadikas.com/wp-content/uploads/2025/01/cropped-cropped-Untitled-design-1-300x75.webp" alt="Nomadikas" class="h-8 md:h-9" /></a>
+    <p class="hidden md:block font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79]">A private selection · prepared by Darina</p>
+  </div>
+</header>
+
+<section class="px-6 pt-28 pb-20 max-w-4xl mx-auto text-center">
+  <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-8">Three countries · five homes</p>
+  <h1 class="font-heading italic font-light leading-[1.05] mb-10" style="font-size: clamp(2.8rem, 5.5vw, 4.6rem);">
+    A week somewhere<br />
+    only <em class="text-[#8c8c79]">you</em> will know about.
+  </h1>
+  <p class="font-light leading-relaxed text-[#5a5a5a] max-w-[52ch] mx-auto text-[1.05rem]">
+    Five homes hand-picked for this letter — across Greece, Portugal and Spain. Each one built to make the week feel private, considered and entirely yours. Choose a country on the map below to step in.
+  </p>
+</section>
+
+<section class="px-6 pb-24">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-16">
+
+    <div class="lg:sticky lg:top-28 lg:self-start">
+      <div class="aspect-[4/5] lg:aspect-auto lg:h-[620px] bg-[#d8e2ec] overflow-hidden">
+        <div id="map"></div>
+      </div>
+      <p class="mt-4 font-josefin uppercase tracking-[0.28em] text-[0.55rem] text-[#888]">Mediterranean &amp; Iberia · click a pin to step in</p>
+    </div>
+
+    <div class="flex flex-col gap-14">
+
+      <a href="greece.html" class="country-card group block">
+        <div class="aspect-[16/10] overflow-hidden mb-6 bg-black">
+          <div class="photo w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1759502759697-daba569fc8d7?w=1400&q=80');"></div>
+        </div>
+        <p class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79] mb-2">Greece · Zakynthos</p>
+        <h2 class="font-heading italic text-[2.4rem] leading-[1.1] mb-4">Greece.</h2>
+        <p class="text-[#5a5a5a] leading-relaxed mb-5 max-w-[44ch] text-[0.95rem]">
+          One home on the quiet western coast of Zakynthos. Eight bedrooms that open onto the Ionian, olive and cypress at the door, a private stretch of beach below.
+        </p>
+        <span class="underline inline-block font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] border-b border-[#8c8c79] pb-1">Step into Greece →</span>
+      </a>
+
+      <a href="portugal.html" class="country-card group block">
+        <div class="aspect-[16/10] overflow-hidden mb-6 bg-black">
+          <div class="photo w-full h-full bg-cover" style="background-image: url('https://images.unsplash.com/photo-1556978164-6875469dd041?w=1400&q=80'); background-position: center 72%;"></div>
+        </div>
+        <p class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79] mb-2">Portugal · Alentejo &amp; Comporta</p>
+        <h2 class="font-heading italic text-[2.4rem] leading-[1.1] mb-4">Portugal.</h2>
+        <p class="text-[#5a5a5a] leading-relaxed mb-5 max-w-[44ch] text-[0.95rem]">
+          Two homes, two registers. An architect's pavilion in the pines of Comporta with a tennis court hidden inside it. And a 180-hectare wild estate in the Alentejo — lake, yoga shala, outdoor sleeping under the stars.
+        </p>
+        <span class="underline inline-block font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] border-b border-[#8c8c79] pb-1">Step into Portugal →</span>
+      </a>
+
+      <a href="spain.html" class="country-card group block">
+        <div class="aspect-[16/10] overflow-hidden mb-6 bg-black">
+          <div class="photo w-full h-full bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1771354146834-feed2e0aee28?w=1400&q=80');"></div>
+        </div>
+        <p class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79] mb-2">Spain · Menorca</p>
+        <h2 class="font-heading italic text-[2.4rem] leading-[1.1] mb-4">Spain.</h2>
+        <p class="text-[#5a5a5a] leading-relaxed mb-5 max-w-[44ch] text-[0.95rem]">
+          An island of farmers no one has heard of. Two farm-stay estates with the rarest currency on the Mediterranean — privacy. One built around a 14th-century watchtower. One a 19th-century hilltop finca on 60 hectares.
+        </p>
+        <span class="underline inline-block font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] border-b border-[#8c8c79] pb-1">Step into Spain →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer class="px-8 py-10 text-center bg-[#F6F6F6] border-t border-black/8">
+  <img src="https://nomadikas.com/wp-content/uploads/2025/01/cropped-cropped-Untitled-design-1-300x75.webp" alt="Nomadikas" class="h-7 mx-auto mb-3 opacity-75" />
+  <p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">A private proposal · five homes · three countries</p>
+</footer>
+
+<div id="fav-tray" class="fixed bottom-6 right-6 z-40 bg-white shadow-2xl border border-black/15 px-6 py-5 max-w-[320px] transition-all duration-500" style="transform: translateY(160%);">
+  <div class="flex items-center justify-between mb-3">
+    <p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">Your shortlist · <span id="fav-count">0</span></p>
+    <button onclick="clearFavs()" class="text-[#888] hover:text-black text-lg leading-none">×</button>
+  </div>
+  <ul id="fav-list" class="mb-4 text-[0.85rem] font-light text-[#2D2D2D] space-y-1"></ul>
+  <div class="flex gap-2">
+    <a id="fav-mailto" href="#" class="flex-1 px-4 py-3 bg-black text-white text-center font-josefin uppercase tracking-[0.28em] text-[0.55rem] hover:bg-[#8c8c79] transition-colors">Email to Darina</a>
+    <button onclick="copyFavs()" class="px-3 py-3 border border-black/20 text-[#5a5a5a] hover:border-black hover:text-black transition-colors" title="Copy list">
+      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+    </button>
+  </div>
+  <p id="copy-status" class="mt-2 font-josefin uppercase tracking-[0.32em] text-[0.5rem] text-[#8c8c79] opacity-0 transition-opacity">Copied to clipboard</p>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map', { zoomControl: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, attributionControl: false });
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 9, minZoom: 4, subdomains: 'abcd' }).addTo(map);
+
+const countries = [
+  { name: 'Greece',   sub: 'Zakynthos',           coords: [37.78, 20.89], page: 'greece.html'   },
+  { name: 'Portugal', sub: 'Comporta · Alentejo', coords: [38.13, -8.79], page: 'portugal.html' },
+  { name: 'Spain',    sub: 'Menorca',             coords: [39.95,  4.07], page: 'spain.html'    }
+];
+
+countries.forEach(c => {
+  const html = `<div class="nomadikas-pin-wrap"><div class="nomadikas-pin"></div><span class="nomadikas-pin-label">${c.name}</span></div>`;
+  const icon = L.divIcon({ html, className: '', iconSize: [16, 16], iconAnchor: [8, 8] });
+  const marker = L.marker(c.coords, { icon }).addTo(map);
+  marker.bindPopup(`<a href="${c.page}"><em>${c.name}</em><small>${c.sub} →</small></a>`, { closeButton: false, offset: [0, -10] });
+  marker.on('click', () => marker.openPopup());
+  marker.on('mouseover', () => marker.openPopup());
+});
+
+const bounds = L.latLngBounds(countries.map(c => c.coords));
+map.fitBounds(bounds, { padding: [90, 90] });
+window.addEventListener('resize', () => { setTimeout(() => { map.invalidateSize(); map.fitBounds(bounds, { padding: [90, 90] }); }, 100); });
+
+const ALL_VENUES = {
+  zakynthos:  { name: "Beachfront Villa Zakynthos", country: "Greece",   page: "greece.html"   },
+  casaNoor:   { name: "Casa Noor",                  country: "Portugal", page: "portugal.html" },
+  fonte:      { name: "Estate Fonte das Perdizes",  country: "Portugal", page: "portugal.html" },
+  santaPrima: { name: "Santa Prima",                country: "Spain",    page: "spain.html"    },
+  esBec:      { name: "Es Bec d'Aguila",            country: "Spain",    page: "spain.html"    }
+};
+const FAV_KEY = 'nomadikas-proposal-favs';
+function getFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; } }
+function setFavs(list) { localStorage.setItem(FAV_KEY, JSON.stringify(list)); updateFavUI(); }
+function clearFavs() { setFavs([]); }
+function copyFavs() { const favs = getFavs(); if (favs.length === 0) return; const names = favs.map(k => ALL_VENUES[k]?.name + ' (' + ALL_VENUES[k]?.country + ')').join('\n- '); navigator.clipboard.writeText('My shortlist:\n- ' + names).then(() => { const s = document.getElementById('copy-status'); s.style.opacity = '1'; setTimeout(() => s.style.opacity = '0', 2000); }); }
+function updateFavUI() {
+  const favs = getFavs();
+  const tray = document.getElementById('fav-tray'); const count = favs.length;
+  tray.style.transform = count > 0 ? 'translateY(0)' : 'translateY(160%)';
+  document.getElementById('fav-count').textContent = count;
+  document.getElementById('fav-list').innerHTML = favs.map(k => { const v = ALL_VENUES[k]; return `<li class="flex items-start justify-between gap-2"><span>· ${v.name}</span><span class="text-[0.65rem] text-[#888]">${v.country}</span></li>`; }).join('');
+  const names = favs.map(k => '- ' + ALL_VENUES[k].name + ' (' + ALL_VENUES[k].country + ')').join('\n');
+  document.getElementById('fav-mailto').href = 'mailto:darina@nomadikas.com?subject=' + encodeURIComponent('My shortlist from the private selection') + '&body=' + encodeURIComponent('Hi Darina,\n\nThese are the homes I keep coming back to:\n\n' + names + '\n\nWhen could we set up a call to talk through dates?\n\nThank you.');
+}
+updateFavUI();
+</script>
+
+</body>
+</html>
