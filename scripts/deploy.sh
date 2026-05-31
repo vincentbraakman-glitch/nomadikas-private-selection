@@ -8,23 +8,20 @@
 # how you ship an update: run it, the production URL/domain swaps to the new build.
 #
 # ──────────────────────────────────────────────────────────────────────────
-# USAGE (from anywhere):
+# USAGE — no arguments needed; it already targets the live project:
 #
-#   VERCEL_PROJECT=<existing-project-name> bash deploy.sh
+#   bash deploy.sh
 #
 # To run it completely from scratch on a fresh machine/agent:
 #
 #   curl -fsSL https://raw.githubusercontent.com/vincentbraakman-glitch/nomadikas-private-selection/main/scripts/deploy.sh -o deploy.sh
-#   VERCEL_PROJECT=<existing-project-name> bash deploy.sh
+#   bash deploy.sh
 #
 # ──────────────────────────────────────────────────────────────────────────
-# REQUIRED:
-#   VERCEL_PROJECT  Name of the EXISTING Vercel project that currently serves
-#                   Darina's page. Using the same name means this deploy
-#                   overwrites it (and any custom domain auto-points to the new
-#                   build) instead of creating a second, separate page.
-#
 # OPTIONAL:
+#   VERCEL_PROJECT  Existing Vercel project to overwrite. Defaults to
+#                   'nomadikas-private-selection' (serves the .vercel.app URL
+#                   above). Only override if the page is moved elsewhere.
 #   VERCEL_TOKEN    Vercel access token, for non-interactive auth. If unset,
 #                   you must have run `vercel login` first.
 #   VERCEL_SCOPE    Team / org slug, if the project lives under a team.
@@ -36,7 +33,9 @@ set -euo pipefail
 REPO_URL="https://github.com/vincentbraakman-glitch/nomadikas-private-selection.git"
 WORKDIR="${WORKDIR:-nomadikas-private-selection}"
 
-: "${VERCEL_PROJECT:?Set VERCEL_PROJECT to the existing Vercel project name to overwrite (e.g. VERCEL_PROJECT=nomadikas-private-selection bash deploy.sh)}"
+# Existing project that serves https://nomadikas-private-selection.vercel.app
+# Override only if the page is ever moved to a differently-named project.
+VERCEL_PROJECT="${VERCEL_PROJECT:-nomadikas-private-selection}"
 
 # 1. Get the latest code (fresh clone, or hard-reset an existing one to origin/main)
 if [ -d "$WORKDIR/.git" ]; then
