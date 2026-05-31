@@ -1,6 +1,6 @@
 # Nomadikas — A private selection
 
-A bespoke villa proposal page across Greece, Portugal and Spain.
+A bespoke villa proposal page across Greece, Portugal, Spain and Indonesia.
 
 **Live preview**: see GitHub Pages settings for the active URL.
 
@@ -8,10 +8,11 @@ Static HTML — no build step. Open `index.html` directly or serve the folder.
 
 ## Pages
 
-- `index.html` — Countries overview with Leaflet map + 3 country cards
+- `index.html` — Countries overview with Leaflet map + 4 country cards
 - `greece.html` — Beachfront Villa Zakynthos
 - `portugal.html` — Casa Noor + Estate Fonte das Perdizes
 - `spain.html` — Santa Prima + Es Bec d'Aguila (Menorca)
+- `indonesia.html` — Estate Nihi Watu (Sumba)
 
 ## Features
 

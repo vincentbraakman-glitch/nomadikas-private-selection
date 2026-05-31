@@ -40,13 +40,6 @@
   }
   .nomadikas-pin-wrap { position: relative; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; }
   .nomadikas-pin-wrap:hover .nomadikas-pin { transform: scale(1.5); }
-  .nomadikas-pin-label {
-    position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-    margin-top: 12px; font-family: 'Josefin Sans', sans-serif;
-    font-size: 0.6rem; letter-spacing: 0.32em; text-transform: uppercase; color: #1a1a1a;
-    white-space: nowrap; pointer-events: none;
-    background: rgba(250, 248, 243, 0.92); padding: 4px 9px;
-  }
 
   .leaflet-popup-content-wrapper { border-radius: 0; box-shadow: 0 16px 44px rgba(0,0,0,0.18); padding: 0; }
   .leaflet-popup-content { margin: 0; padding: 14px 20px; }
@@ -66,13 +59,13 @@
 </header>
 
 <section class="px-6 pt-28 pb-20 max-w-4xl mx-auto text-center">
-  <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-8">Three countries · five homes</p>
+  <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-8">Four countries · six homes</p>
   <h1 class="font-heading italic font-light leading-[1.05] mb-10" style="font-size: clamp(2.8rem, 5.5vw, 4.6rem);">
     A week somewhere<br />
     only <em class="text-[#8c8c79]">you</em> will know about.
   </h1>
   <p class="font-light leading-relaxed text-[#5a5a5a] max-w-[52ch] mx-auto text-[1.05rem]">
-    Five homes hand-picked for this letter — across Greece, Portugal and Spain. Each one built to make the week feel private, considered and entirely yours. Choose a country on the map below to step in.
+    Six homes hand-picked for this letter — across Greece, Portugal, Spain and Indonesia. Each one built to make the week feel private, considered and entirely yours. Choose a country on the map below to step in.
   </p>
 </section>
 
@@ -83,7 +76,7 @@
       <div class="aspect-[4/5] lg:aspect-auto lg:h-[620px] bg-[#d8e2ec] overflow-hidden">
         <div id="map"></div>
       </div>
-      <p class="mt-4 font-josefin uppercase tracking-[0.28em] text-[0.55rem] text-[#888]">Mediterranean &amp; Iberia · click a pin to step in</p>
+      <p class="mt-4 font-josefin uppercase tracking-[0.28em] text-[0.55rem] text-[#888]">Europe &amp; Indonesia · click a pin to step in</p>
     </div>
 
     <div class="flex flex-col gap-14">
@@ -124,13 +117,25 @@
         <span class="underline inline-block font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] border-b border-[#8c8c79] pb-1">Step into Spain →</span>
       </a>
 
+      <a href="indonesia.html" class="country-card group block">
+        <div class="aspect-[16/10] overflow-hidden mb-6 bg-black">
+          <div class="photo w-full h-full bg-cover bg-center" style="background-image: url('assets/indonesia/nihi-watu/01.jpg');"></div>
+        </div>
+        <p class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79] mb-2">Indonesia · Sumba</p>
+        <h2 class="font-heading italic text-[2.4rem] leading-[1.1] mb-4">Indonesia.</h2>
+        <p class="text-[#5a5a5a] leading-relaxed mb-5 max-w-[44ch] text-[0.95rem]">
+          One estate, at the edge of the map. A five-acre oceanfront headland on the wild coast of Sumba — five villas, four pools, a waterfront yoga pavilion, and arranged access to a celebrated off-grid spa and a legendary surf break next door.
+        </p>
+        <span class="underline inline-block font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] border-b border-[#8c8c79] pb-1">Step into Indonesia →</span>
+      </a>
+
     </div>
   </div>
 </section>
 
 <footer class="px-8 py-10 text-center bg-[#F6F6F6] border-t border-black/8">
   <img src="https://nomadikas.com/wp-content/uploads/2025/01/cropped-cropped-Untitled-design-1-300x75.webp" alt="Nomadikas" class="h-7 mx-auto mb-3 opacity-75" />
-  <p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">A private proposal · five homes · three countries</p>
+  <p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">A private proposal · six homes · four countries</p>
 </footer>
 
 <div id="fav-tray" class="fixed bottom-6 right-6 z-40 bg-white shadow-2xl border border-black/15 px-6 py-5 max-w-[320px] transition-all duration-500" style="transform: translateY(160%);">
@@ -151,16 +156,17 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 const map = L.map('map', { zoomControl: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, attributionControl: false });
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { maxZoom: 9, minZoom: 4, subdomains: 'abcd' }).addTo(map);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', { maxZoom: 9, minZoom: 1, subdomains: 'abcd' }).addTo(map);
 
 const countries = [
-  { name: 'Greece',   sub: 'Zakynthos',           coords: [37.78, 20.89], page: 'greece.html'   },
-  { name: 'Portugal', sub: 'Comporta · Alentejo', coords: [38.13, -8.79], page: 'portugal.html' },
-  { name: 'Spain',    sub: 'Menorca',             coords: [39.95,  4.07], page: 'spain.html'    }
+  { name: 'Greece',    sub: 'Zakynthos',           coords: [37.78, 20.89],  page: 'greece.html'    },
+  { name: 'Portugal',  sub: 'Comporta · Alentejo', coords: [38.13, -8.79],  page: 'portugal.html'  },
+  { name: 'Spain',     sub: 'Menorca',             coords: [39.95,  4.07],  page: 'spain.html'     },
+  { name: 'Indonesia', sub: 'Sumba',               coords: [-9.78, 119.32], page: 'indonesia.html' }
 ];
 
 countries.forEach(c => {
-  const html = `<div class="nomadikas-pin-wrap"><div class="nomadikas-pin"></div><span class="nomadikas-pin-label">${c.name}</span></div>`;
+  const html = `<div class="nomadikas-pin-wrap"><div class="nomadikas-pin"></div></div>`;
   const icon = L.divIcon({ html, className: '', iconSize: [16, 16], iconAnchor: [8, 8] });
   const marker = L.marker(c.coords, { icon }).addTo(map);
   marker.bindPopup(`<a href="${c.page}"><em>${c.name}</em><small>${c.sub} →</small></a>`, { closeButton: false, offset: [0, -10] });
@@ -169,15 +175,16 @@ countries.forEach(c => {
 });
 
 const bounds = L.latLngBounds(countries.map(c => c.coords));
-map.fitBounds(bounds, { padding: [90, 90] });
-window.addEventListener('resize', () => { setTimeout(() => { map.invalidateSize(); map.fitBounds(bounds, { padding: [90, 90] }); }, 100); });
+map.fitBounds(bounds, { padding: [40, 40] });
+window.addEventListener('resize', () => { setTimeout(() => { map.invalidateSize(); map.fitBounds(bounds, { padding: [40, 40] }); }, 100); });
 
 const ALL_VENUES = {
-  zakynthos:  { name: "Beachfront Villa Zakynthos", country: "Greece",   page: "greece.html"   },
-  casaNoor:   { name: "Casa Noor",                  country: "Portugal", page: "portugal.html" },
-  fonte:      { name: "Estate Fonte das Perdizes",  country: "Portugal", page: "portugal.html" },
-  santaPrima: { name: "Santa Prima",                country: "Spain",    page: "spain.html"    },
-  esBec:      { name: "Es Bec d'Aguila",            country: "Spain",    page: "spain.html"    }
+  zakynthos:  { name: "Beachfront Villa Zakynthos", country: "Greece",    page: "greece.html"    },
+  casaNoor:   { name: "Casa Noor",                  country: "Portugal",  page: "portugal.html"  },
+  fonte:      { name: "Estate Fonte das Perdizes",  country: "Portugal",  page: "portugal.html"  },
+  santaPrima: { name: "Santa Prima",                country: "Spain",     page: "spain.html"     },
+  esBec:      { name: "Es Bec d'Aguila",            country: "Spain",     page: "spain.html"     },
+  nihiWatu:   { name: "Estate Nihi Watu",           country: "Indonesia", page: "indonesia.html" }
 };
 const FAV_KEY = 'nomadikas-proposal-favs';
 function getFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; } }
