@@ -59,13 +59,13 @@
 </header>
 
 <section class="px-6 pt-28 pb-20 max-w-4xl mx-auto text-center">
-  <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-8">Four countries · six homes</p>
+  <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-8">Five countries · eight homes</p>
   <h1 class="font-heading italic font-light leading-[1.05] mb-10" style="font-size: clamp(2.8rem, 5.5vw, 4.6rem);">
     A week somewhere<br />
     only <em class="text-[#8c8c79]">you</em> will know about.
   </h1>
   <p class="font-light leading-relaxed text-[#5a5a5a] max-w-[52ch] mx-auto text-[1.05rem]">
-    Six homes hand-picked for this letter — across Greece, Portugal, Spain and Indonesia. Each one built to make the week feel private, considered and entirely yours. Choose a country on the map below to step in.
+    Eight homes hand-picked for this letter — across Greece, Portugal, Spain, Italy and Indonesia. Each one built to make the week feel private, considered and entirely yours. Choose a country on the map below to step in.
   </p>
 </section>
 
@@ -117,6 +117,18 @@
         <span class="underline inline-block font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] border-b border-[#8c8c79] pb-1">Step into Spain →</span>
       </a>
 
+      <a href="italy.html" class="country-card group block">
+        <div class="aspect-[16/10] overflow-hidden mb-6 bg-black">
+          <div class="photo w-full h-full bg-cover bg-center" style="background-image: url('https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/10/Masseria_Belvedere.jpg');"></div>
+        </div>
+        <p class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79] mb-2">Italy · Puglia</p>
+        <h2 class="font-heading italic text-[2.4rem] leading-[1.1] mb-4">Italy.</h2>
+        <p class="text-[#5a5a5a] leading-relaxed mb-5 max-w-[44ch] text-[0.95rem]">
+          Two homes in the heel of Italy. A 16th-century masseria above the Adriatic at Carovigno — infinity pool, olive grove, golden stone for sixteen. And a clifftop villa at the very tip of the Salento, where two sea-view pools fall to the water.
+        </p>
+        <span class="underline inline-block font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] border-b border-[#8c8c79] pb-1">Step into Italy →</span>
+      </a>
+
       <a href="indonesia.html" class="country-card group block">
         <div class="aspect-[16/10] overflow-hidden mb-6 bg-black">
           <div class="photo w-full h-full bg-cover bg-center" style="background-image: url('assets/indonesia/nihi-watu/01.jpg');"></div>
@@ -135,7 +147,7 @@
 
 <footer class="px-8 py-10 text-center bg-[#F6F6F6] border-t border-black/8">
   <img src="https://nomadikas.com/wp-content/uploads/2025/01/cropped-cropped-Untitled-design-1-300x75.webp" alt="Nomadikas" class="h-7 mx-auto mb-3 opacity-75" />
-  <p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">A private proposal · six homes · four countries</p>
+  <p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">A private proposal · eight homes · five countries</p>
 </footer>
 
 <div id="fav-tray" class="fixed bottom-6 right-6 z-40 bg-white shadow-2xl border border-black/15 px-6 py-5 max-w-[320px] transition-all duration-500" style="transform: translateY(160%);">
@@ -162,6 +174,7 @@ const countries = [
   { name: 'Greece',    sub: 'Zakynthos',           coords: [37.78, 20.89],  page: 'greece.html'    },
   { name: 'Portugal',  sub: 'Comporta · Alentejo', coords: [38.13, -8.79],  page: 'portugal.html'  },
   { name: 'Spain',     sub: 'Menorca',             coords: [39.95,  4.07],  page: 'spain.html'     },
+  { name: 'Italy',     sub: 'Puglia',              coords: [40.69, 17.66],  page: 'italy.html'     },
   { name: 'Indonesia', sub: 'Sumba',               coords: [-9.78, 119.32], page: 'indonesia.html' }
 ];
 
@@ -184,7 +197,9 @@ const ALL_VENUES = {
   fonte:      { name: "Estate Fonte das Perdizes",  country: "Portugal",  page: "portugal.html"  },
   santaPrima: { name: "Santa Prima",                country: "Spain",     page: "spain.html"     },
   esBec:      { name: "Es Bec d'Aguila",            country: "Spain",     page: "spain.html"     },
-  nihiWatu:   { name: "Estate Nihi Watu",           country: "Indonesia", page: "indonesia.html" }
+  nihiWatu:   { name: "Estate Nihi Watu",           country: "Indonesia", page: "indonesia.html" },
+  masseriaBelvedere:{ name: "Masseria Belvedere",   country: "Italy",     page: "italy.html"     },
+  villaAcquamarina: { name: "Villa Acquamarina",    country: "Italy",     page: "italy.html"     }
 };
 const FAV_KEY = 'nomadikas-proposal-favs';
 function getFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; } }

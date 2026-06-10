@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Italy — A private selection · Nomadikas</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Josefin+Sans:wght@300;400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<style>
+  body { font-family: 'Montserrat', sans-serif; background: #F6F6F6; color: #2D2D2D; }
+  .font-heading { font-family: 'Amiri', serif; }
+  .font-josefin { font-family: 'Josefin Sans', sans-serif; }
+
+  .photo-hover { transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
+  .group:hover .photo-hover { transform: scale(1.03); }
+
+  @keyframes ken-burns { 0%   { transform: scale(1.05) translate(0, 0); } 50%  { transform: scale(1.12) translate(-1.5%, 1%); } 100% { transform: scale(1.05) translate(0, 0); } }
+  .hero-bg { animation: ken-burns 36s ease-in-out infinite; }
+
+  body.modal-open { overflow: hidden; }
+  .fav-btn.fav-active svg { fill: #fff; stroke: #fff; }
+  .fav-btn.fav-active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+  .price-strip { border-top: 1px solid rgba(0,0,0,0.10); }
+  @keyframes pulse-soft { 0%, 100% { transform: translateY(0); opacity: 0.85; } 50% { transform: translateY(-3px); opacity: 1; } }
+  .pulse-soft { animation: pulse-soft 2.2s ease-in-out infinite; }
+
+  /* Experience card hover — left-aligned, slide-up from bottom */
+  .exp-photo { transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+  .exp-card:hover .exp-photo { transform: scale(1.06); }
+  .exp-default { transition: opacity 0.5s ease; }
+  .exp-card:hover .exp-default { opacity: 0; }
+  .exp-hover {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1);
+  }
+  .exp-card:hover .exp-hover { opacity: 1; transform: translateY(0); }
+  .exp-dark { opacity: 0; transition: opacity 0.5s ease; }
+  .exp-card:hover .exp-dark { opacity: 1; }
+
+  .exp-swiper { overflow: visible; }
+  .exp-swiper .swiper-slide { height: auto; }
+
+  /* Modal photo slider — Indonesia style */
+  #modal-photos { background: #141414; }
+  .modal-fade-top { position: absolute; left: 0; right: 0; top: 0; height: 140px; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0) 100%); }
+  .modal-fade-bot { position: absolute; left: 0; right: 0; bottom: 0; height: 200px; z-index: 2; pointer-events: none; background: linear-gradient(0deg, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0) 100%); }
+  .modal-dot { width: 2rem; height: 2px; background: rgba(255,255,255,0.3); cursor: pointer; border: none; padding: 0; transition: background 0.3s ease; }
+  .modal-dot.active { background: #faf8f3; }
+  .modal-photo-arrow {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+  }
+  .modal-photo-arrow:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.5); }
+  .modal-photo-caption {
+    background: rgba(10,10,10,0.55);
+    backdrop-filter: blur(6px);
+    color: rgba(250,248,243,0.95);
+    font-family: 'Amiri', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    letter-spacing: 0.01em;
+    padding: 0.55rem 1.25rem;
+    transition: opacity 0.4s ease;
+  }
+</style>
+</head>
+<body>
+
+<header class="sticky top-0 z-40 px-6 md:px-8 py-4 bg-[#F6F6F6]/95 backdrop-blur-md border-b border-black/8">
+  <div class="max-w-7xl mx-auto flex items-center justify-between gap-6">
+    <a href="index.html" class="block"><img src="https://nomadikas.com/wp-content/uploads/2025/01/cropped-cropped-Untitled-design-1-300x75.webp" alt="Nomadikas" class="h-8 md:h-9" /></a>
+    <a href="index.html" class="hidden md:flex items-center gap-2 font-josefin uppercase tracking-[0.28em] text-[0.6rem] text-[#5a5a5a] hover:text-black transition-colors"><span>←</span> All countries</a>
+    <div class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79]">Italy</div>
+  </div>
+</header>
+
+<section class="relative h-[62vh] min-h-[480px] overflow-hidden">
+  <div class="hero-bg absolute inset-0 bg-cover bg-center" style="background-image: url('https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/10/Masseria_Belvedere.jpg');"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/35 via-black/15 to-black/60"></div>
+  <div class="relative z-10 h-full flex flex-col justify-center items-center text-center px-6 text-white">
+    <p class="font-josefin uppercase tracking-[0.42em] text-[0.62rem] mb-6 opacity-85">Puglia · Two homes</p>
+    <h1 class="font-heading italic font-light leading-[1.05]" style="font-size: clamp(2.8rem, 5.5vw, 4.8rem);">Golden stone, olive light,<br />and the <em class="text-[#d4d2c5]">sea</em> on every side.</h1>
+  </div>
+</section>
+
+<section class="px-6 py-20 max-w-3xl mx-auto text-center">
+  <p class="font-light leading-relaxed text-[#5a5a5a] text-[1.05rem]">
+    Two homes in the sun-baked heel of Italy. One a 16th-century masseria above the Adriatic near Carovigno — golden stone, walled gardens, an infinity pool reaching for the horizon. The other a clifftop villa at the very tip of the Salento, where the terraces fall straight to the sea. Both entirely yours, for the week.
+  </p>
+</section>
+
+<!-- ═══════════════ VENUE 01 — Masseria Belvedere ═══════════════ -->
+<section class="px-6 mb-20 max-w-6xl mx-auto">
+  <article id="venue-masseria" class="grid md:grid-cols-2 bg-[#FBF9F4] border border-black/8 overflow-hidden">
+
+    <div class="flex flex-col order-1">
+      <button onclick="openSlider('masseriaBelvedere')" class="relative block w-full overflow-hidden bg-black cursor-zoom-in group flex-1">
+        <div class="aspect-[4/5] md:aspect-auto md:min-h-[580px] md:h-full bg-cover bg-center photo-hover" style="background-image: url('https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_100.jpg');"></div>
+        <span class="absolute top-7 left-7 font-heading italic text-white/85" style="font-size: 1.8rem;">01</span>
+        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none"><div class="bg-white/85 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center text-lg text-[#1a1a1a]">‹</div></div>
+        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none"><div class="bg-white/85 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center text-lg text-[#1a1a1a]">›</div></div>
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur text-white px-4 py-2 font-josefin uppercase tracking-[0.32em] text-[0.55rem] pulse-soft">Click to view 10 photos</div>
+      </button>
+      <p class="font-heading italic text-[#5a5a5a] text-[0.92rem] leading-snug px-6 py-4 bg-[#FBF9F4]">The infinity pool in the walled garden — golden Puglian stone, the Adriatic light beyond.</p>
+    </div>
+
+    <div class="flex flex-col justify-between p-8 md:p-12 lg:p-14 order-2">
+      <div>
+        <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-6">Carovigno · Puglia · Adriatic coast</p>
+        <h2 class="font-heading italic leading-[1] mb-4" style="font-size: clamp(2.4rem, 4.2vw, 3.4rem);">Masseria Belvedere</h2>
+        <p class="font-heading italic text-[1.05rem] text-[#5a5a5a] mb-7 leading-snug">a 16th-century farmhouse, restored in golden stone</p>
+        <p class="text-[0.92rem] leading-[1.7] text-[#2D2D2D] font-light mb-8 max-w-[44ch]">
+          Carved from Puglian stone in the 1500s and meticulously restored in 2021, a working farmhouse that learned to dress in linen. Eight en-suite bedrooms across two floors, sixteen guests at most. An infinity pool reaches for the horizon in the walled garden; a plunge pool and hot tub crown the rooftop terrace. A hammam in the old stone, a wood-fired kitchen under the loggia, an olive grove old enough to have outlived empires.
+        </p>
+
+        <div class="grid grid-cols-3 gap-x-8 gap-y-4 mb-8">
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">16</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">guests</p></div>
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">8</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">bedrooms</p></div>
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">2</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">pools</p></div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-x-4 gap-y-3 mb-7 pb-7 border-b border-black/10">
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="droplets" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Infinity pool</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="waves" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Rooftop hot tub</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="flame" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Wood-fired kitchen</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Hammam + spa</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="trees" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Olive grove</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="utensils-crossed" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Private chef</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          <button onclick="openInfo('masseriaBelvedere')" class="px-5 py-3 border border-black/30 hover:bg-black hover:text-white transition-colors font-josefin uppercase tracking-[0.28em] text-[0.55rem] flex items-center gap-2"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg><span>Description &amp; FAQs</span></button>
+          <button onclick="toggleFav('masseriaBelvedere')" data-fav="masseriaBelvedere" class="fav-btn px-5 py-3 border border-black/30 transition-colors font-josefin uppercase tracking-[0.28em] text-[0.55rem] flex items-center gap-2"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="fav-label">Save to shortlist</span></button>
+        </div>
+        <div class="price-strip pt-5">
+          <p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mb-1">Per week · full buyout</p>
+          <p class="font-heading italic text-[1.6rem] leading-none mb-3">On request</p>
+          <p class="text-[0.78rem] text-[#5a5a5a] font-light"><span class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mr-2">Included</span>Host &amp; team on site, daily housekeeping. Private chef and experiences arranged.</p>
+        </div>
+      </div>
+    </div>
+
+  </article>
+</section>
+
+<section class="py-2 mb-8 max-w-3xl mx-auto text-center px-6">
+  <p class="font-heading italic text-[#8c8c79] text-xl leading-snug">"Or — the very tip of the south, where the cliffs fall to the sea."</p>
+</section>
+
+<!-- ═══════════════ VENUE 02 — Villa Acquamarina ═══════════════ -->
+<section class="px-6 mb-24 max-w-6xl mx-auto">
+  <article id="venue-acquamarina" class="grid md:grid-cols-2 bg-[#FBF9F4] border border-black/8 overflow-hidden">
+
+    <div class="flex flex-col justify-between p-8 md:p-12 lg:p-14 order-2 md:order-1">
+      <div>
+        <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-6">Gagliano del Capo · Salento · Puglia</p>
+        <h2 class="font-heading italic leading-[1] mb-4" style="font-size: clamp(2.4rem, 4.2vw, 3.4rem);">Villa Acquamarina</h2>
+        <p class="font-heading italic text-[1.05rem] text-[#5a5a5a] mb-7 leading-snug">a clifftop villa where Italy runs out of land</p>
+        <p class="text-[0.92rem] leading-[1.7] text-[#2D2D2D] font-light mb-8 max-w-[44ch]">
+          At the very tip of the Salento, inside the protected coast of Otranto, Villa Acquamarina stands on the cliff with a 180° sweep of the Adriatic. Seven bedrooms, fifteen guests, two sea-view dipping pools cut into the terrace. A jacuzzi and a sauna, a spa for in-villa massage, a wine cellar, a private chef — and, when the evening asks for it, live music arranged on the terrace above the water. Bohemian-chic and barefoot, with the sea on every side.
+        </p>
+
+        <div class="grid grid-cols-3 gap-x-8 gap-y-4 mb-8">
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">15</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">guests</p></div>
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">7</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">bedrooms</p></div>
+          <div><p class="font-heading italic leading-none" style="font-size: 1.8rem;">2</p><p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mt-2">sea pools</p></div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-x-4 gap-y-3 mb-7 pb-7 border-b border-black/10">
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="droplets" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Sea-view pools</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="waves" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Jacuzzi + sauna</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Spa &amp; massage</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="utensils-crossed" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Private chef</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="grape" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Wine cellar</span></div>
+          <div class="flex items-center gap-2 text-[0.78rem] text-[#2D2D2D]"><i data-lucide="music" class="w-3.5 h-3.5 text-[#8c8c79]"></i><span>Sea-view concerts</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex flex-wrap items-center gap-2 mb-6">
+          <button onclick="openInfo('villaAcquamarina')" class="px-5 py-3 border border-black/30 hover:bg-black hover:text-white transition-colors font-josefin uppercase tracking-[0.28em] text-[0.55rem] flex items-center gap-2"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg><span>Description &amp; FAQs</span></button>
+          <button onclick="toggleFav('villaAcquamarina')" data-fav="villaAcquamarina" class="fav-btn px-5 py-3 border border-black/30 transition-colors font-josefin uppercase tracking-[0.28em] text-[0.55rem] flex items-center gap-2"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="fav-label">Save to shortlist</span></button>
+        </div>
+        <div class="price-strip pt-5">
+          <p class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mb-1">Per week · full buyout</p>
+          <p class="font-heading italic text-[1.6rem] leading-none mb-3">On request</p>
+          <p class="text-[0.78rem] text-[#5a5a5a] font-light"><span class="font-josefin uppercase tracking-[0.22em] text-[0.55rem] text-[#8c8c79] mr-2">Included</span>Concierge &amp; housekeeping. Private chef, transfers and experiences arranged.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col order-1 md:order-2">
+      <button onclick="openSlider('villaAcquamarina')" class="relative block w-full overflow-hidden bg-black cursor-zoom-in group flex-1">
+        <div class="aspect-[4/5] md:aspect-auto md:min-h-[580px] md:h-full bg-cover bg-center photo-hover" style="background-image: url('https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Vue-generale-9-Mise-en-avant-min-scaled.webp');"></div>
+        <span class="absolute top-7 left-7 font-heading italic text-white/85" style="font-size: 1.8rem;">02</span>
+        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none"><div class="bg-white/85 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center text-lg text-[#1a1a1a]">‹</div></div>
+        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none"><div class="bg-white/85 backdrop-blur w-10 h-10 rounded-full flex items-center justify-center text-lg text-[#1a1a1a]">›</div></div>
+        <div class="absolute bottom-5 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur text-white px-4 py-2 font-josefin uppercase tracking-[0.32em] text-[0.55rem] pulse-soft">Click to view 10 photos</div>
+      </button>
+      <p class="font-heading italic text-[#5a5a5a] text-[0.92rem] leading-snug px-6 py-4 bg-[#FBF9F4]">The clifftop terraces falling to the Adriatic — two sea-view pools cut into the stone.</p>
+    </div>
+
+  </article>
+</section>
+
+<!-- ═══════════════ EXPERIENCES ═══════════════ -->
+<section class="py-24 md:py-32 bg-[#1a1a1a] text-white/85 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-3xl mb-14">
+      <p class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mb-5">Signature experiences</p>
+      <h2 class="font-heading italic font-light leading-[1.1] text-white" style="font-size: clamp(2.4rem, 4.2vw, 3.4rem);">The whole of Puglia,<br />at your door.</h2>
+    </div>
+
+    <div class="relative">
+      <button class="exp-prev absolute -left-2 md:-left-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 border border-white/30 bg-black/40 backdrop-blur hover:bg-white/15 hover:border-white/60 text-white flex items-center justify-center text-2xl leading-none transition-all">‹</button>
+      <button class="exp-next absolute -right-2 md:-right-8 top-1/2 -translate-y-1/2 z-10 w-12 h-12 md:w-14 md:h-14 border border-white/30 bg-black/40 backdrop-blur hover:bg-white/15 hover:border-white/60 text-white flex items-center justify-center text-2xl leading-none transition-all">›</button>
+
+      <div class="swiper exp-swiper">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+            <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Il_promontorio_e_le_isole_di_Torre_Guaceto.jpg/1280px-Il_promontorio_e_le_isole_di_Torre_Guaceto.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+            <div class="exp-dark absolute inset-0 bg-black/75"></div>
+            <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">The Adriatic coast</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A day on a<br>private gozzo</h3></div>
+            <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">The Adriatic coast</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A day on a<br>private gozzo</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">A wooden gozzo from the coast, anchoring in the clear water off the Torre Guaceto reserve — lunch on board, nothing on the horizon but the old watchtower.</p></div>
+          </div></div>
+
+          <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+            <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Ostuni_col_drone.jpg/1280px-Ostuni_col_drone.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+            <div class="exp-dark absolute inset-0 bg-black/75"></div>
+            <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Ostuni · the white city</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">The white city,<br>after dark</h3></div>
+            <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Ostuni · the white city</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">The white city,<br>after dark</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">An evening climbing the lime-washed lanes to the cathedral, a private terrace aperitivo as the whole town turns gold, then dinner in a vaulted room below.</p></div>
+          </div></div>
+
+          <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+            <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Polignano_a_mare_-Lama_Monachile.jpg/1280px-Polignano_a_mare_-Lama_Monachile.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+            <div class="exp-dark absolute inset-0 bg-black/75"></div>
+            <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Polignano a Mare</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">A swim under<br>the cliffs</h3></div>
+            <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Polignano a Mare</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">A swim under<br>the cliffs</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">The bottle-green cove of Lama Monachile, framed by the white town stacked on the rock above — then a long lunch on a terrace cut into the cliff.</p></div>
+          </div></div>
+
+          <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+            <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Alberobello_con_il_drone.jpg/1280px-Alberobello_con_il_drone.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+            <div class="exp-dark absolute inset-0 bg-black/75"></div>
+            <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Alberobello · the trulli</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">Into the<br>trulli</h3></div>
+            <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Alberobello · the trulli</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">Into the<br>trulli</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">An early walk through the Rione Monti before the crowds, where whole streets of conical stone trulli climb the hill — a UNESCO village made real.</p></div>
+          </div></div>
+
+          <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+            <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Basilica_of_Santa_Croce%2C_Lecce_01.jpg/1280px-Basilica_of_Santa_Croce%2C_Lecce_01.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+            <div class="exp-dark absolute inset-0 bg-black/75"></div>
+            <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Lecce · the baroque south</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">Stone turned<br>to lace</h3></div>
+            <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Lecce · the baroque south</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">Stone turned<br>to lace</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">The honey-coloured baroque of Lecce, from the carved facade of Santa Croce to a pasticciotto still warm from the oven.</p></div>
+          </div></div>
+
+          <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+            <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Locorotondo_con_il_drone.jpg/1280px-Locorotondo_con_il_drone.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+            <div class="exp-dark absolute inset-0 bg-black/75"></div>
+            <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Valle d'Itria · wine country</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">The round town<br>&amp; its wine</h3></div>
+            <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Valle d'Itria · wine country</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">The round town<br>&amp; its wine</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">Locorotondo, the perfectly circular white town above the valley — a glass of its crisp white, a sea of trulli and vineyards falling away below.</p></div>
+          </div></div>
+
+          <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+            <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://www.puglialuxuryhomes.com/wp-content/uploads/2025/12/Diner-1-scaled.webp');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+            <div class="exp-dark absolute inset-0 bg-black/75"></div>
+            <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">The estate table</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">Burrata, and<br>a long table</h3></div>
+            <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">The estate table</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">Burrata, and<br>a long table</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">A private chef and a table that doesn't move until late — burrata pulled that morning, orecchiette by hand, the estate's own wine, the night arriving slowly.</p></div>
+          </div></div>
+
+          <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+            <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_103.jpg');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+            <div class="exp-dark absolute inset-0 bg-black/75"></div>
+            <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Masseria Belvedere</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">The infinity<br>pool, alone</h3></div>
+            <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Masseria Belvedere</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">The infinity<br>pool, alone</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">Late afternoon, the heat leaving the golden stone, the infinity pool holding the sky and very little else.</p></div>
+          </div></div>
+
+          <div class="swiper-slide"><div class="exp-card group relative aspect-[4/5] overflow-hidden cursor-pointer">
+            <div class="exp-photo absolute inset-0 bg-cover bg-center" style="background-image: url('https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/7-Jacuzzi-2-scaled.webp');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent"></div>
+            <div class="exp-dark absolute inset-0 bg-black/75"></div>
+            <div class="exp-default absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-2">Villa Acquamarina · the cliff</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.15]">Sauna, sea,<br>a sundowner</h3></div>
+            <div class="exp-hover absolute inset-0 flex flex-col justify-end items-start p-6 text-left"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#d4d2c5] mb-3">Villa Acquamarina · the cliff</p><h3 class="font-heading italic text-white text-[1.5rem] leading-[1.2] mb-4">Sauna, sea,<br>a sundowner</h3><p class="text-white/90 text-[0.88rem] leading-relaxed max-w-[34ch]">The clifftop jacuzzi and sauna, a massage in the spa, then a sundowner as live music drifts across the terrace above the water.</p></div>
+          </div></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="px-8 py-10 text-center bg-[#F6F6F6] border-t border-black/8">
+  <img src="https://nomadikas.com/wp-content/uploads/2025/01/cropped-cropped-Untitled-design-1-300x75.webp" alt="Nomadikas" class="h-7 mx-auto mb-3 opacity-75" />
+  <p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">Italy · Puglia · private proposal</p>
+  <p class="mt-3 font-josefin uppercase tracking-[0.28em] text-[0.55rem] text-[#888]"><a href="index.html" class="border-b border-[#8c8c79] hover:text-black hover:border-black">← Look at Greece, Portugal, Spain or Indonesia</a></p>
+</footer>
+
+<!-- Favourites tray -->
+<div id="fav-tray" class="fixed bottom-6 right-6 z-40 bg-white shadow-2xl border border-black/15 px-6 py-5 max-w-[320px] transition-all duration-500" style="transform: translateY(160%);">
+  <div class="flex items-center justify-between mb-3"><p class="font-josefin uppercase tracking-[0.32em] text-[0.55rem] text-[#8c8c79]">Your shortlist · <span id="fav-count">0</span></p><button onclick="clearFavs()" class="text-[#888] hover:text-black text-lg leading-none">×</button></div>
+  <ul id="fav-list" class="mb-4 text-[0.85rem] font-light text-[#2D2D2D] space-y-1"></ul>
+  <div class="flex gap-2">
+    <a id="fav-mailto" href="#" class="flex-1 px-4 py-3 bg-black text-white text-center font-josefin uppercase tracking-[0.28em] text-[0.55rem] hover:bg-[#8c8c79] transition-colors">Email to Darina</a>
+    <button onclick="copyFavs()" class="px-3 py-3 border border-black/20 text-[#5a5a5a] hover:border-black hover:text-black transition-colors" title="Copy list"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+  </div>
+  <p id="copy-status" class="mt-2 font-josefin uppercase tracking-[0.32em] text-[0.5rem] text-[#8c8c79] opacity-0 transition-opacity">Copied to clipboard</p>
+</div>
+
+<!-- ═══════════════ PHOTO MODAL ═══════════════ -->
+<div id="modal-photos" class="fixed inset-0 z-[100] hidden items-center justify-center">
+  <div class="modal-fade-top"></div>
+  <div class="modal-fade-bot"></div>
+  <div class="absolute top-6 left-6 md:top-8 md:left-8 z-[5] bg-black/30 backdrop-blur text-[#faf8f3] px-4 py-2 font-josefin uppercase tracking-[0.25em] text-[0.7rem]" id="modal-photo-counter">1 / 10</div>
+  <button onclick="closeModals()" class="modal-photo-arrow absolute top-6 right-6 md:top-8 md:right-8 z-[5] w-12 h-12 md:w-14 md:h-14 text-[#faf8f3] flex items-center justify-center">
+    <svg class="w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+  </button>
+  <button onclick="prevPhoto()" class="modal-photo-arrow absolute left-3 md:left-8 top-1/2 -translate-y-1/2 z-[5] w-12 h-12 md:w-14 md:h-14 text-[#faf8f3] flex items-center justify-center text-2xl leading-none">‹</button>
+  <button onclick="nextPhoto()" class="modal-photo-arrow absolute right-3 md:right-8 top-1/2 -translate-y-1/2 z-[5] w-12 h-12 md:w-14 md:h-14 text-[#faf8f3] flex items-center justify-center text-2xl leading-none">›</button>
+  <img id="modal-photo-img" class="max-w-[90%] max-h-[80vh] object-contain relative z-[1]" src="" alt="" />
+  <div class="modal-photo-caption absolute bottom-16 md:bottom-20 left-1/2 -translate-x-1/2 z-[5] max-w-[78%] text-center" id="modal-photo-caption-wrap"><span id="modal-photo-caption"></span></div>
+  <div class="absolute bottom-7 left-1/2 -translate-x-1/2 z-[5] flex gap-2.5" id="modal-photo-dots"></div>
+</div>
+
+<div id="modal-info" class="fixed inset-0 z-[100] hidden bg-black/85 items-start justify-center overflow-y-auto py-12 px-4">
+  <div class="relative bg-[#F6F6F6] max-w-2xl w-full">
+    <button onclick="closeModals()" class="absolute top-5 right-6 text-[#5a5a5a] hover:text-black text-3xl leading-none z-10">×</button>
+    <div class="aspect-[16/9] bg-cover bg-center" id="modal-info-photo"></div>
+    <div class="p-8 md:p-12">
+      <p class="font-josefin uppercase tracking-[0.32em] text-[0.6rem] text-[#8c8c79] mb-3" id="modal-info-location"></p>
+      <h2 class="font-heading italic text-3xl mb-6" id="modal-info-name"></h2>
+      <p class="text-[0.92rem] leading-relaxed text-[#2D2D2D] font-light whitespace-pre-line" id="modal-info-description"></p>
+      <h3 class="font-josefin uppercase tracking-[0.32em] text-[0.62rem] text-[#8c8c79] mt-10 mb-5">Six common questions</h3>
+      <div id="modal-info-faqs" class="border-t border-black/10"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+const ALL_VENUES = {
+  zakynthos:        { name: "Beachfront Villa Zakynthos", country: "Greece",    page: "greece.html"    },
+  casaNoor:         { name: "Casa Noor",                  country: "Portugal",  page: "portugal.html"  },
+  fonte:            { name: "Estate Fonte das Perdizes",  country: "Portugal",  page: "portugal.html"  },
+  santaPrima:       { name: "Santa Prima",                country: "Spain",     page: "spain.html"     },
+  esBec:            { name: "Es Bec d'Aguila",            country: "Spain",     page: "spain.html"     },
+  nihiWatu:         { name: "Estate Nihi Watu",           country: "Indonesia", page: "indonesia.html" },
+  masseriaBelvedere:{ name: "Masseria Belvedere",         country: "Italy",     page: "italy.html"     },
+  villaAcquamarina: { name: "Villa Acquamarina",          country: "Italy",     page: "italy.html"     }
+};
+
+const VENUES = {
+  masseriaBelvedere: {
+    name: "Masseria Belvedere",
+    location: "Carovigno · Puglia · Adriatic coast",
+    hero: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_100.jpg",
+    photos: [
+      { url: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_100.jpg", caption: "The pool and the masseria, the Adriatic beyond" },
+      { url: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_103.jpg", caption: "The infinity pool in the walled garden" },
+      { url: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_107.jpg", caption: "Golden stone, restored to linen" },
+      { url: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_115.jpg", caption: "The estate, as the day softens" },
+      { url: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_110.jpg", caption: "An afternoon in the olive grove" },
+      { url: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_113.jpg", caption: "Puglian light across the stone" },
+      { url: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_108.jpg", caption: "Within the old farmhouse" },
+      { url: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/09/Masseria-Belvedere_117.jpg", caption: "Masseria Belvedere, into the evening" },
+      { url: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/07/Masseria_Belvedere_image_20.jpg", caption: "Sixteenth-century stone, restored in 2021" },
+      { url: "https://www.masseriabelvederecarovigno.com/wp-content/uploads/2025/07/Masseria_Belvedere_image_28.jpg", caption: "Walled gardens and ancient olives" }
+    ],
+    description: "Carved from Puglian stone in the 1500s as a fortified farmhouse and meticulously restored in 2021, Masseria Belvedere is roughly 500m² of golden stone set in 1.5 hectares of walled garden, olive grove and citrus orchard. Eight en-suite bedrooms across two floors hold up to sixteen guests.\n\nAn infinity-edge pool reaches for the horizon in the central garden; a plunge pool and hot tub crown the rooftop terrace. There is a hammam built into the old stone, sunken bathtubs in the suites, a yoga studio, a grass volleyball court, and an outdoor wood-fired kitchen under the loggia for the long evenings.\n\nThe host, Chiara, and her team are on site throughout — hotel-attentive, never intrusive. Carovigno's old town is five minutes; the Adriatic's Blue Flag coast and the Torre Guaceto reserve ten to fifteen; Brindisi airport twenty.",
+    faqs: [
+      { q: "Is it full-buyout only?", a: "Yes — the masseria is yours alone: eight en-suite bedrooms for up to sixteen guests, with the host Chiara and her team on hand but never underfoot." },
+      { q: "Is it built for a group?", a: "Entirely. The walled garden gathers everyone — long lunches under the wood oven, the infinity pool, a rooftop terrace with a plunge pool for sundowners, a grass volleyball court, and a yoga studio for slow mornings." },
+      { q: "What about food and a private chef?", a: "A private chef can cook the whole stay or single evenings — fine-dining dinners, pizza nights at the wood oven, hands-on fresh-pasta lessons. Tastings of local wine, olive oil and cheese are arranged on the terrace or out in the countryside." },
+      { q: "How private is it, and who looks after us?", a: "Fully private behind its own walls. Host Chiara and an on-site team manage everything; the estate is placed exclusively through Nomadikas and its keeper." },
+      { q: "Where is it, and how do we arrive?", a: "Carovigno, on the Adriatic side of Puglia. Brindisi airport is 25 km — about 20 minutes; Bari is roughly an hour and a quarter. The old town is 5 minutes, the Blue Flag beaches and Torre Guaceto reserve 10–15." },
+      { q: "When is the best time to come?", a: "May to early October. June and September are the sweet spot — warm sea, long light, the countryside still quiet. The peak weeks of late July and August book first." }
+    ]
+  },
+  villaAcquamarina: {
+    name: "Villa Acquamarina",
+    location: "Gagliano del Capo · Salento · Puglia",
+    hero: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Vue-generale-9-Mise-en-avant-min-scaled.webp",
+    photos: [
+      { url: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Vue-generale-9-Mise-en-avant-min-scaled.webp", caption: "The villa on the Adriatic cliff" },
+      { url: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/12/Vue-generale-8-scaled.webp", caption: "The clifftop estate from above" },
+      { url: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Piscine-2.3-scaled.webp", caption: "A sea-view dipping pool on the terrace" },
+      { url: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Piscine-1.13-copie-scaled.webp", caption: "Daybeds at the edge of the sea" },
+      { url: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/12/Terrasse-PR-5-scaled.webp", caption: "The terrace at sunset over the Adriatic" },
+      { url: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/Pergola-Pr-4-scaled.webp", caption: "The dining pergola above the water" },
+      { url: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/1-Vue-mer-8-scaled.webp", caption: "The 180-degree sea view" },
+      { url: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/2-Salon-19-scaled.webp", caption: "The open living room" },
+      { url: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/3-Grande-2-CH-8-scaled.webp", caption: "A sea-facing bedroom" },
+      { url: "https://www.puglialuxuryhomes.com/wp-content/uploads/2025/11/7-Jacuzzi-2-scaled.webp", caption: "The clifftop jacuzzi" }
+    ],
+    description: "At the very tip of the Salento, inside the protected coast of the Otranto natural park, Villa Acquamarina stands on the cliff with a 180-degree sweep of the Adriatic. Seven bedrooms hold up to fifteen guests; a traditional stone pajara sits in the garden.\n\nTwo sea-view dipping pools are cut into the terraces, with an outdoor jacuzzi and a sauna alongside a spa area for in-villa massage. There is a wine cellar, a private chef who serves Salento menus at the seafront pergola, a BBQ and made-to-order breakfasts, a garden fitness trail and a pétanque court — and Starlink throughout.\n\nThe house has a signature flourish: live music arranged on the grounds above the sea for a celebratory evening. Bohemian-chic and barefoot, with the sea on every side. Brindisi airport is about an hour and a half; Otranto, Gallipoli and the Maldive del Salento beaches are all an easy drive.",
+    faqs: [
+      { q: "Is it full-buyout only?", a: "Yes — seven bedrooms for up to fifteen guests, the whole clifftop villa to your group alone." },
+      { q: "How close is the sea?", a: "It is the sea — the villa sits on the cliff with a 180-degree Adriatic view and private coves reachable by boat below. Two dipping pools and a jacuzzi are cut into the terraces." },
+      { q: "What's the wellness side?", a: "A sauna, an outdoor jacuzzi and a spa area for in-villa massages, plus a garden fitness trail and a pétanque court for active mornings between swims." },
+      { q: "Food and a private chef?", a: "A private chef cooks Salento menus served at the seafront pergola; there is a wine cellar, a BBQ, and made-to-order breakfasts on the terrace." },
+      { q: "Tell me about the sea-view concerts.", a: "A signature of the house — the owners arrange live music on the grounds above the sea for a celebratory evening. Private chauffeur and vintage-car transfers can be arranged too." },
+      { q: "Where is it, and how do we arrive?", a: "Gagliano del Capo, at the southern tip of Puglia near Santa Maria di Leuca. Brindisi airport is about an hour and a half by road, Bari roughly two and three-quarter hours. Otranto, Gallipoli and the Maldive del Salento beaches are all an easy drive." }
+    ]
+  }
+};
+
+let currentVenue = null, currentPhotoIndex = 0;
+function openSlider(key) {
+  currentVenue = VENUES[key]; currentPhotoIndex = 0;
+  renderDots(); showPhoto();
+  const m = document.getElementById('modal-photos');
+  m.classList.remove('hidden'); m.classList.add('flex');
+  document.body.classList.add('modal-open');
+}
+function openInfo(key) {
+  const v = VENUES[key]; currentVenue = v;
+  document.getElementById('modal-info-photo').style.backgroundImage = `url('${v.hero}')`;
+  document.getElementById('modal-info-location').textContent = v.location;
+  document.getElementById('modal-info-name').textContent = v.name;
+  document.getElementById('modal-info-description').textContent = v.description;
+  document.getElementById('modal-info-faqs').innerHTML = v.faqs.map(f => `<details class="border-b border-black/10 group"><summary class="py-5 cursor-pointer font-heading italic text-[1.05rem] flex justify-between items-start gap-4 list-none [&::-webkit-details-marker]:hidden hover:text-[#8c8c79] transition-colors"><span>${f.q}</span><span class="text-2xl text-[#8c8c79] group-open:rotate-45 transition-transform leading-none mt-0.5 flex-shrink-0">+</span></summary><p class="pb-6 text-[0.88rem] font-light leading-[1.75] text-[#2D2D2D]">${f.a}</p></details>`).join('');
+  const m = document.getElementById('modal-info'); m.classList.remove('hidden'); m.classList.add('flex'); document.body.classList.add('modal-open');
+}
+function closeModals() { ['modal-photos','modal-info'].forEach(id => { const el = document.getElementById(id); el.classList.add('hidden'); el.classList.remove('flex'); }); document.body.classList.remove('modal-open'); }
+
+function renderDots() {
+  document.getElementById('modal-photo-dots').innerHTML = currentVenue.photos.map((_, i) => `<button class="modal-dot" data-i="${i}" onclick="goPhoto(${i})"></button>`).join('');
+}
+function showPhoto() {
+  const p = currentVenue.photos[currentPhotoIndex];
+  document.getElementById('modal-photo-img').src = p.url;
+  document.getElementById('modal-photo-caption').textContent = p.caption || '';
+  document.getElementById('modal-photo-counter').textContent = `${currentPhotoIndex + 1} / ${currentVenue.photos.length}`;
+  document.querySelectorAll('#modal-photo-dots .modal-dot').forEach((d, i) => d.classList.toggle('active', i === currentPhotoIndex));
+}
+function goPhoto(i) { currentPhotoIndex = i; showPhoto(); }
+function prevPhoto() { currentPhotoIndex = (currentPhotoIndex - 1 + currentVenue.photos.length) % currentVenue.photos.length; showPhoto(); }
+function nextPhoto() { currentPhotoIndex = (currentPhotoIndex + 1) % currentVenue.photos.length; showPhoto(); }
+
+document.addEventListener('keydown', e => {
+  const open = !document.getElementById('modal-photos').classList.contains('hidden') || !document.getElementById('modal-info').classList.contains('hidden');
+  if (!open) return;
+  if (e.key === 'ArrowLeft' && !document.getElementById('modal-photos').classList.contains('hidden')) prevPhoto();
+  else if (e.key === 'ArrowRight' && !document.getElementById('modal-photos').classList.contains('hidden')) nextPhoto();
+  else if (e.key === 'Escape') closeModals();
+});
+['modal-photos','modal-info'].forEach(id => { document.getElementById(id).addEventListener('click', e => { if (e.target.id === id) closeModals(); }); });
+
+const FAV_KEY = 'nomadikas-proposal-favs';
+function getFavs() { try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch { return []; } }
+function setFavs(list) { localStorage.setItem(FAV_KEY, JSON.stringify(list)); updateFavUI(); }
+function toggleFav(key) { const favs = getFavs(); const i = favs.indexOf(key); if (i === -1) favs.push(key); else favs.splice(i, 1); setFavs(favs); }
+function clearFavs() { setFavs([]); }
+function copyFavs() { const favs = getFavs(); if (favs.length === 0) return; const names = favs.map(k => ALL_VENUES[k]?.name + ' (' + ALL_VENUES[k]?.country + ')').join('\n- '); navigator.clipboard.writeText('My shortlist:\n- ' + names).then(() => { const s = document.getElementById('copy-status'); s.style.opacity = '1'; setTimeout(() => s.style.opacity = '0', 2000); }); }
+function updateFavUI() {
+  const favs = getFavs();
+  document.querySelectorAll('[data-fav]').forEach(btn => { const key = btn.dataset.fav; const isFav = favs.includes(key); btn.classList.toggle('fav-active', isFav); btn.querySelector('.fav-label').textContent = isFav ? 'Saved' : 'Save to shortlist'; });
+  const tray = document.getElementById('fav-tray'); const count = favs.length;
+  tray.style.transform = count > 0 ? 'translateY(0)' : 'translateY(160%)';
+  document.getElementById('fav-count').textContent = count;
+  document.getElementById('fav-list').innerHTML = favs.map(k => { const v = ALL_VENUES[k]; return `<li class="flex items-start justify-between gap-2"><span>· ${v.name}</span><span class="text-[0.65rem] text-[#888]">${v.country}</span></li>`; }).join('');
+  const names = favs.map(k => '- ' + ALL_VENUES[k].name + ' (' + ALL_VENUES[k].country + ')').join('\n');
+  document.getElementById('fav-mailto').href = 'mailto:darina@nomadikas.com?subject=' + encodeURIComponent('My shortlist from the private selection') + '&body=' + encodeURIComponent('Hi Darina,\n\nThese are the homes I keep coming back to:\n\n' + names + '\n\nWhen could we set up a call to talk through dates?\n\nThank you.');
+}
+updateFavUI();
+
+new Swiper('.exp-swiper', {
+  slidesPerView: 1,
+  spaceBetween: 18,
+  loop: true,
+  navigation: { nextEl: '.exp-next', prevEl: '.exp-prev' },
+  breakpoints: { 640: { slidesPerView: 2, spaceBetween: 20 }, 1024: { slidesPerView: 3, spaceBetween: 24 } }
+});
+
+lucide.createIcons();
+</script>
+</body>
+</html>
